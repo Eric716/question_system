@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Dashboard</title>
+    
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">出題系統 <sup>學生</sup></div>    <!-- 左上角title文字 -->
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="btn nav-link" href="index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span class="user_id"></span></a>      <!-- 中間title文字 -->
+            </li>
+            <!-- Divider -->
+  
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="btn nav-link user_info_button" >
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>個人資料</span></a>
+            </li>
+
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                題目資料
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <button class=" btn btn-user btn-block nav-link guidance_list_button" type='button'>
+                    <i class="fas fa-fw fa-chart-area guidance_list_button"></i>
+                    <span>指導句</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="btn btn-user btn-block nav-link question_button">
+                    <i class="fas fa-fw fa-chart-area question_button"></i>
+                    <span>出題</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="btn btn-user btn-block nav-link score_button" href="score.html">
+                    <i class="fas fa-fw fa-chart-area score_button"></i>
+                    <span>評題</span></a>
+            </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link" href="charts.html">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>已評題目</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="charts.html">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>被評題目</span></a>
+            </li> -->
+
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search 中間上面的搜尋欄位-->
+                    <!-- <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form> -->
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) 不知道在幹嘛-->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small user_id"></span>
+                                <img class="img-profile rounded-circle"
+                                    src="img/undraw_profile.svg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div id="main" class="col-sm-12" ></div>
+                <div id="user_info_main" class="col-sm-12 user_info_class" ></div>
+                <table id="user_info" class="table table-bordered container user_info_class" style='display:none'></table>
+
+                <div id="guidance_list_main" class="col-sm-12  guidance_list" ></div>
+                <div class="container guidance_list">
+                    <div class="table-responsive guidance_list">
+                        <table id="guidance_list" class="table table-bordered guidance_list" style='display:none' width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>EN_description</th>
+                                    <th>CN_description</th>
+                                    <th>EN_example</th>
+                                    <th>CN_example</th>
+                                    <th>course_id</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="container" style='display:none' id="question">
+                    <div class="row">
+                    <div class="col">
+                    <h1 class="offset-1">學生出題介面</h1>
+                    <!-- <h2>Postgres Select Query</h2> -->
+                    <style>
+                        .input1{width: 400px}
+                        .input2{width: 400px; height: 300px;}
+                    </style>
+                      <form  method="post" action="/select_records" enctype="multipart/form-data">
+                        <!-- method="post" action="/select_records" -->
+                        <!-- <div class="row"><div class="col-1">SELECT</div></div>
+                        <div class="row"><div class="col-2 offset-1">*</div></div>
+                        <div class="row"><div class="col-1">FROM</div></div>
+                        <div class="row"><div class="col-2 offset-1">alpaca_training</div></div>  
+                        <div class="row"><div class="col-1">WHERE</div></div> -->
+                        
+                        <!-- <div class="row"><div class="col-1">選擇題</div></div> -->
+                        
+                        <div class="form-group row">
+                            <label for="category" class="col-2 offset-1 col-form-label">題目類型</label>
+                            <div class="col-3">
+                            <select name="category" class="form-control input1" id="category">
+                                <option value=0>選擇題</option>
+                                <option value=1>簡答題</option>      
+                            </select>
+                            <!-- <input type="text" class="form-control" id="ans" name="ans" placeholder="答案">
+                            <small class="form-text">答案</small> -->
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="content" class="col-2 offset-1 col-form-label">指導句</label>
+                            <div class="col-3">
+                                <!-- <input type="text" class="form-control" id="guidance" name="guidance" placeholder="指導句">
+                                <small class="form-text">指導句</small> -->
+                            <select class="form-control input1" name="Item_1" id="guidance_select">
+                                <option value=""></option>
+                                {% for i in guidance_dict %}
+                                <option value={{i}}>{{guidance_dict[i]['CN_description']}}</option>
+                                {% endfor %}
+                                <!-- <option value="else">else</option>         -->
+                            </select>
+                            </div>
+                            
+                        </div>
+                        
+                        <!-- style="width: 400px; height: 300px;" -->
+                        <div class="form-group row">
+                          <label for="content" class="col-2 offset-1 col-form-label">題目內容</label>
+                          <div class="col-3">
+                            <input type="text" class="form-control input2" id="content2" name="content" placeholder="題目內容" >
+                            <small class="form-text">請輸入題目內容</small>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                        <label for="picture" class="col-2 offset-1 col-form-label">插入圖片</label>   
+                        <div class="col-3">
+                        <input name="image" type="file" id="file" accept="image/gif, image/jpeg, image/png" onchange="verificationPicFile(this)" >
+                        <img id="output"/>
+                        <script>
+                   
+                        function verificationPicFile(file) {
+                            const reader = new FileReader();
+                            reader.onload = function (ev) {
+                                // base64码
+                                var imgFile =ev.target.result;//或e.target都是一样的
+                                // document.querySelector("img").src= ev.target.result;
+                                // console.log(ev.target.result)
+                                var base64img = imgFile
+                                console.log(ev.target.result)
+                                $("#img_base64").val(base64img);
+                                
+                            }
+                            reader.readAsDataURL(file.files[0]);
+
+                            var fileSize = 0;
+                            var fileMaxSize = 1024;//1M
+                            var filePath = file.value;
+                            if(filePath){
+                                fileSize =file.files[0].size;
+                                var size = fileSize / 1024;
+                                console.log(size+"KB");
+                                // alert("文件大小為"+size)
+                                if (size > fileMaxSize) {
+                                    alert("文件大小不能大於1M!");
+                                    file.value = "";
+                                    return false;
+                                }else if (size <= 0) {
+                                    alert("文件大小不能為0M!");
+                                    file.value = "";
+                                    return false;
+                                }
+                            }else{
+                                return false;
+                            }
+                            
+                            var output = document.getElementById('output');
+                            output.src = URL.createObjectURL(event.target.files[0]);
+                            output.onload = function() {
+                            URL.revokeObjectURL(output.src) // free memory
+                            }
+                        }
+
+                        </script>
+                        </div>
+                        </div>
+
+                        
+                        <div class="form-group row selection">
+                          <label for="selectA" class="col-2 offset-1 col-form-label">選項A</label>
+                          <div class="col-3">
+                            <input type="text" class="form-control input1" id="selectA" name="selectA" placeholder="選項A">
+                            <small class="form-text">選項A</small>
+                          </div>
+                        </div>
+                        <div class="form-group row selection">
+                          <label for="selectB" class="col-2 offset-1 col-form-label">選項B</label>
+                          <div class="col-3">
+                            <input type="text" class="form-control input1" id="selectB" name="selectB" placeholder="選項B">
+                            <small class="form-text">選項B</small>
+                          </div>
+                    
+                        </div>
+                        <div class="form-group row selection">
+                            <label for="selectC" class="col-2 offset-1 col-form-label">選項C</label>
+                            <div class="col-3">
+                              <input type="text" class="form-control input1" id="selectC" name="selectC" placeholder="選項C">
+                              <small class="form-text">選項C</small>
+                            </div>
+                        </div>
+                        <div class="form-group row selection">
+                        <label for="selectD" class="col-2 offset-1 col-form-label">選項D</label>
+                        <div class="col-3">
+                            <input type="text" class="form-control input1" id="selectD" name="selectD" placeholder="選項D">
+                            <small class="form-text">選項D</small>
+                        </div>
+                        </div>
+                        <div class="form-group row">
+                        <label for="hashtagA" class="col-2 offset-1 col-form-label">hashtagA</label>
+                        <div class="col-3">
+                            <input type="text" class="form-control input1" id="hashtagA" name="hashtagA" placeholder="hashtagA">
+                            <small class="form-text">hashtagA</small>
+                        </div>
+
+                        </div>
+                        <div class="form-group row">
+                        <label for="hashtagB" class="col-2 offset-1 col-form-label">hashtagB</label>
+                        <div class="col-3">
+                            <input type="text" class="form-control input1" id="hashtagB" name="hashtagB" placeholder="hashtagB">
+                            <small class="form-text">hashtagB</small>
+                        </div>
+
+                        </div>
+                        <div class="form-group row">
+                        <label for="hashtagC" class="col-2 offset-1 col-form-label">hashtagC</label>
+                        <div class="col-3">
+                            <input type="text" class="form-control input1" id="hashtagC" name="hashtagC" placeholder="hashtagC">
+                            <small class="form-text">hashtagC</small>
+                        </div>
+                        </div>
+
+                        <div class="form-group row selection">
+                            <label for="ans" class="col-2 offset-1 col-form-label">答案</label>
+                            <div class="col-3 ">
+                            <select name="ans" class="form-control input1" id="ans_selection">
+                                <option value=A>A</option>
+                                <option value=B>B</option>
+                                <option value=C>C</option>
+                                <option value=D>D</option>        
+                            </select>
+                            <!-- <small class="form-text">選項</small> -->
+                            </div>
+                            <div class="col-3 short_answer" style='display:none'>
+                                <input type="text" class="form-control input1" id="ans_short_answer" name="答案" placeholder="答案">
+                                <small class="form-text">答案</small>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row short_answer" style='display:none'>
+                            <label for="ans" class="col-2 offset-1 col-form-label">答案</label>
+                            <div class="col-3 short_answer" >
+                                <input type="text" class="form-control input1" id="ans_short_answer" name="答案" placeholder="答案">
+                                <!-- <small class="form-text">答案</small> -->
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                        <label for="description" class="col-2 offset-1 col-form-label">詳解</label>
+                        <div class="col-3">
+                            <input type="text" class="form-control input1" id="description" name="description" placeholder="詳解">
+                            <small class="form-text">詳解</small>
+                        </div>
+                        </div>
+                        <div class="form-group row">
+                        <label for="hint" class="col-2 offset-1 col-form-label">提示</label>
+                        <div class="col-3">
+                            <input type="text" class="form-control input1" id="hint" name="hint" placeholder="hint">
+                            <small class="form-text">hint</small>
+                        </div>
+                        </div>
+
+                          <div class="form-group row">
+                            <label for="content" class="col-2 offset-1 col-form-label">圖片內容</label>
+                            <div class="col-3">
+                                <input type="text" class="form-control" id="img_base64" name="img_base64" placeholder="img_base64">
+                                <small class="form-text">hint</small>
+                            </div>
+                            </div>
+                        <button type="submit" class="btn btn-primary  col-2 offset-1" data-action="submit">出題</button>
+                        
+                    </form>
+                    </div>
+                    </div>
+                    
+                </div>
+
+                
+
+                
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; 出題系統 </span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="logout_btn" >Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/student_index.js"></script>
+    
+
+</body>
+
+</html>

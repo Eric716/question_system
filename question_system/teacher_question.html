@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Dashboard</title>
+    
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" id = "redirect" href="teacher_question.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">出題系統 <sup>2</sup></div>    <!-- 左上角title文字 -->
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="index_teacher.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span >返回選擇課程頁面</span></a>      <!-- 中間title文字 -->
+            </li>
+            <!-- Divider -->
+  
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item not_reporter">
+                <button class=" btn btn-user btn-block nav-link student_if_in_course" id = in_course_button type='button'>
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>課程內學生</span></a>
+                </button>
+            </li>
+            <li class="nav-item not_reporter">
+                <button class=" btn btn-user btn-block nav-link student_if_in_course" id = not_in_course_button type='button'>
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>課程外學生</span></a>
+            </li>
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider not_reporter">
+
+            <!-- Heading -->
+            <div class="sidebar-heading not_reporter">
+                指導句
+            </div>
+            <li class="nav-item not_reporter">
+                <button class=" btn btn-user btn-block nav-link get_guidance_btn" type='button'>
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>編輯指導句</span></a>
+                </button>
+            </li>
+
+            <!-- Divider -->
+
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                題目資料
+            </div>
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <button class=" btn btn-user btn-block nav-link add_question" type='button'>
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>新增問題</span></a>
+                </button>
+            </li>
+
+            <li class="nav-item">
+                <button class=" btn btn-user btn-block nav-link list_question" type='button'>
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>列出問題</span></a>
+                </button>
+            </li>
+            
+
+
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search 中間上面的搜尋欄位-->
+
+                        <div class="navbar-nav ml-auto">
+                            <h1 class="h3 mb-0 text-gray-800" id="class_name"></h1>
+
+                        </div>
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small user_id" ></span>
+                                <img class="img-profile rounded-circle"
+                                    src="img/undraw_profile.svg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <div class="form-group row">
+                        <div id="main" class="col-sm-12" ></div>
+                        <table id="user_info" class="table table-bordered" style='display:none'>
+
+                        </table>
+                        <!-- 學生資料  -->
+                        <table class="form-group row">
+                            <div class="col-sm-1 mb-3 mb-sm-0" style="text-align: center">
+                                <span class="student_info2  bg-gray-200"  style='display:none'>
+                                    篩選條件
+                                </span>
+                            </div>
+                            <div class="col-sm-2 mb-3 mb-sm-0">
+                                <input type="text" class="form-control form-control-user student_info2" id="school" style='display:none'
+                                    placeholder="學校">
+                            </div>
+                            <div class="col-sm-2 mb-3 mb-sm-0">
+                                <input type="text" class="form-control form-control-user student_info2" id="class" style='display:none'
+                                    placeholder="班級/科系">
+                            </div>
+                            <div class="col-sm-2 mb-3 mb-sm-0">
+                                <input type="text" class="form-control form-control-user student_info2" id="student_id" style='display:none'
+                                    placeholder="學號">
+                            </div>
+                            <div class="col-sm-1 mb-3 mb-sm-0">
+                                <button class="btn btn-primary btn-user btn-block student_info2 student_if_in_course" id = course_button type='button'  style='display:none'>
+                                    送出
+                                </button>
+                            </div>
+                        </table>
+                        <table id="student_info" class="table table-bordered " style='display:none'>
+
+                        </table>
+
+                        <table class="row">
+                            <div class="col-sm-6 guidance" style='display:none'>
+                                <button class="btn btn-primary btn-user btn-block get_guidance_btn" >
+                                    查看指導句
+                                </button>
+                            </div>
+                            <div class="col-sm-6 guidance" style='display:none'>
+                                <button class="btn btn-primary btn-user btn-block add_guidance_btn">
+                                    新增指導句
+                                </button>
+                            </div>
+                        </table>
+                        <table id="guidence_table" class="table table-bordered" style='display:none'>
+                        </table>
+                        <!-- 待完成 -->
+
+                        <div  class="container-fluid">
+                            <div class="form-group"></div>  <!-- 空白 -->
+                            <div class="container-fluid add_guidance" style='display:none'>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user adding_guidance"
+                                        id="EN_description"   placeholder="enter EN_description">
+                                </div>
+                            </div>
+                            <div class="container-fluid add_guidance" style='display:none'>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user adding_guidance" 
+                                        id="CN_description"   placeholder="enter CN_description">
+                                </div>
+                            </div>
+                            <div class="container-fluid add_guidance" style='display:none'>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user adding_guidance"
+                                        id="EN_example"   placeholder="enter EN_example">
+                                </div>
+                            </div>
+                            <div class="container-fluid add_guidance" style='display:none'>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user adding_guidance" 
+                                        id="CN_example"   placeholder="enter CN_example">
+                                </div>
+                            </div>
+                            <div class="container-fluid add_guidance" style='display:none'>
+                            <button class="btn btn-primary btn-user btn-block adding_guidance" id ='adding_guidance_button' >
+                                送出
+                            </button>
+                            </div>
+                        </div>
+                        <table id="question_info" class="table table-bordered" style='display:none'>
+                        </table>
+                    </div>
+                    <div class="container question" style='display:none'>
+                        <!-- <h2>Postgres Select Query</h2> -->
+                            <div class="form-group row">
+                                <label for="hashtagA" class="col-2 offset-1 col-form-label">hashtagA</label>
+                                <div class="col-3">
+                                    <input type="text" class="form-control" id="hashtagA" name="hashtagA" placeholder="hashtagA">
+                                    <small class="form-text">hashtagA</small>
+                                </div>
+            
+                                </div>
+                                <div class="form-group row">
+                                <label for="hashtagB" class="col-2 offset-1 col-form-label">hashtagB</label>
+                                <div class="col-3">
+                                    <input type="text" class="form-control" id="hashtagB" name="hashtagB" placeholder="hashtagB">
+                                    <small class="form-text">hashtagB</small>
+                                </div>
+            
+                                </div>
+                                <div class="form-group row">
+                                <label for="hashtagC" class="col-2 offset-1 col-form-label">hashtagC</label>
+                                <div class="col-3">
+                                    <input type="text" class="form-control" id="hashtagC" name="hashtagC" placeholder="hashtagC">
+                                    <small class="form-text">hashtagC</small>
+                                </div>
+                                </div>
+                            
+                            <div class="form-group row radar">
+                              <label for="radarA" class="col-2 offset-1 col-form-label">雷達A</label>
+                              <div class="col-3">
+                                <input type="text" class="form-control" id="radarA" name="radarA" placeholder="雷達A">
+                                <small class="form-text">雷達A</small>
+                              </div>
+                            </div>
+                            <div class="form-group row radar">
+                              <label for="radarB" class="col-2 offset-1 col-form-label">雷達B</label>
+                              <div class="col-3">
+                                <input type="text" class="form-control" id="radarB" name="radarB" placeholder="雷達B">
+                                <small class="form-text">雷達B</small>
+                              </div>
+                        
+                            </div>
+                            <div class="form-group row radar">
+                                <label for="radarC" class="col-2 offset-1 col-form-label">雷達C</label>
+                                <div class="col-3">
+                                  <input type="text" class="form-control" id="radarC" name="radarC" placeholder="雷達C">
+                                  <small class="form-text">雷達C</small>
+                                </div>
+                            </div>
+                            <div class="form-group row radar">
+                            <label for="radarD" class="col-2 offset-1 col-form-label">雷達D</label>
+                            <div class="col-3">
+                                <input type="text" class="form-control" id="radarD" name="radarD" placeholder="雷達D">
+                                <small class="form-text">雷達D</small>
+                            </div>
+                            </div>
+                            <div class="form-group row radar">
+                                <label for="radarD" class="col-2 offset-1 col-form-label">雷達E</label>
+                                <div class="col-3">
+                                    <input type="text" class="form-control" id="radarE" name="radarE" placeholder="雷達E">
+                                    <small class="form-text">雷達E</small>
+                                </div>
+                            </div>
+                            <div class="form-group row" >
+                                <!-- <label for="radarD" class="col-2 offset-1 col-form-label"></label> -->
+                                <button type="button" class="btn btn-primary offset-1" id="adding_question" >出題</button>
+                            </div>
+                            
+                        </form>
+                    </div>
+                    
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; 出題系統 </span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="logout_btn" >Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/teacher_question.js"></script>
+  
+
+</body>
+
+</html>
