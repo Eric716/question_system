@@ -3,7 +3,6 @@
 $('#add_course_button').on('click',function() {
     
     var course_name=document.getElementById("course_name").value;
-    var course_id=document.getElementById("course_id").value;
     var settings = {
         "async":true,
         "url": "/new_course",
@@ -14,15 +13,12 @@ $('#add_course_button').on('click',function() {
         },
         "data": {
           "course_name": course_name,
-          "course_id": course_id
         },
         
       };
       $.ajax(settings).done(function (response) {
           if (response == '請輸入完整資料！'){
             alert("請輸入完整資料！");
-          }else if(response == "課程重複"){
-            alert("課程重複")
           }
           else{
             alert('新增成功');
@@ -95,15 +91,12 @@ function nowcourse() {
     $.ajax(settings).done(function (response) {
       coursetable_display("show")
       $( "#main" ).html( "<h1>選擇課程</h1>" );
-      $( "#course_table" ).html( "<tr><th>課程名稱</th><th>課程編號</th></tr>" );
-
+      $( "#course_table" ).html( "<tr><th>課程名稱</th></tr>" );
+      console.log(response)
       for (var k in response){
         $( "#course_table" ).append( "<tr>" );
-        $( "#course_table" ).append( "<td>" + "<button class='btn btn-user btn-block nav-link bg-gradient-dark classes_btn' id='"+response[k]['course_id']+"'type='button'>  <span class='text-white-50'>" + k + "</span></a></button>" + "</td>" );
-
-        $( "#course_table" ).append("<td>"+ response[k]['course_id'] + "</td>" );
-
-          $( "#course_table" ).append( "<tr>" );
+        $( "#course_table" ).append( "<td>" + "<button class='btn btn-user btn-block nav-link bg-gradient-dark classes_btn' id='"+k+"'type='button'>  <span class='text-white-50'>" + response[k]['course_name'] + "</span></a></button>" + "</td>" );
+        $( "#course_table" ).append( "<tr>" );
       }
     });
 

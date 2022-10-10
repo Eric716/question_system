@@ -1,6 +1,7 @@
 
-from flask import Flask, request, render_template, url_for, redirect, flash
+from flask import Flask, request, render_template, url_for, redirect, flash,session
 from flask_restful import Resource, Api
+from datetime import timedelta
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 import requests, json, glob, time
 #import pandas as pd
@@ -25,8 +26,13 @@ app = Flask(__name__, static_folder="./question_system/",template_folder='./ques
 app.secret_key = '1123456987687345'
 login_manager = LoginManager()
 login_manager.init_app(app)
+login_manager.refresh_view = 'relogin'
 login_manager.login_view = '/question_system/login'
 login_manager.login_message = '請先登入'
+login_manager.needs_refresh_message = (u"Session timedout, please re-login")
+login_manager.needs_refresh_message_category = "info"
+# app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=1)
+
 class User(UserMixin):
     pass
 
@@ -125,19 +131,16 @@ def user_info_update():
 ############################
 @app.route('/new_course', methods=['POST'])
 def new_course():
-    course = get_dict_course()
     data = request.form.to_dict()
     cur = conn.cursor()
     course_name = data['course_name']
-    course_id = data['course_id']
     for key in data:
         if data[key].strip()=="":
             return "請輸入完整資料！"
-    if check_repeat_course(course_id):
-        return "課程重複"
+
     print("login_fail")
-    into = "INSERT INTO `courses` (`id`, `user_id`, `course_id`, `course_name`) VALUES (NULL, %s,%s,%s);"
-    values = (current_user.id,course_id,course_name)
+    into = "INSERT INTO `courses` (`id`, `user_id`,  `course_name`) VALUES (NULL, %s,%s);"
+    values = (current_user.id,course_name)
     cur.execute(into, values)
     conn.commit()
     return '新增成功'
@@ -177,6 +180,17 @@ def listing_question():
     print('data',data)
     return list_question(data)
 
+@app.route("/listing_question_response" , methods=['POST'])
+def list_response():
+    data = request.form.to_dict()
+    print('data',data)
+    return listing_question_response(data)
+
+@app.route("/get_scores_mean",methods=['POST'])
+def get_scores_mean():
+    data = request.form.to_dict()
+    print('data',data)
+    return getting_scores_mean(data)
 ############################
 #   使用者資訊
 ############################
@@ -219,10 +233,7 @@ def guidance(name):
         data = request.form.to_dict()
         print('data',data)
         course_id = data['course_id']
-        
-        a = get_guidance(course_id)
-        print(a)
-        return a
+        return get_guidance(course_id)
     elif name == 'add':
         data = request.form.to_dict()
         print('data',data)
@@ -254,7 +265,7 @@ def index_student():
     guidance_dict = get_guidance()
     # print(guidance_dict[1]['EN_description'])
     # return render_template('question.html', guidance_dict = guidance_dict)
-    return  render_template('index.html', guidance_dict = guidance_dict) 
+    return  render_template('./index.html', guidance_dict = guidance_dict) 
 
 # @app.route('/changeselectfield/', methods=['GET', 'POST'])
 # def changeselectfield():
@@ -275,15 +286,23 @@ def question():
 @app.route('/question_system/score.html')
 def score():
     return render_template('score.html')
+    
 @app.route("/guidance_list")
 @login_required
 def guidance_list():
+    
     return get_guidance()
 
 @app.route("/questions_list")
 # @login_required
 def questions_list():
     return get_questions()
+
+@app.route("/questions_hashtag_all")
+# @login_required
+def questions_list2():
+    print(request.args.get('name'))
+    return get_hashtag_list_all()
 
 @app.route('/tables.html')
 def hello_world():
@@ -302,15 +321,37 @@ def hello_world():
 
     return render_template('tables.html', labels=labels, content=content)
 
-@app.route("/select_records", methods=['GET', 'POST'])
-def select_records():
+@app.route("/question_system/question_create", methods=['GET', 'POST'])
+def question_create():
     if request.method == 'POST':
         # 偷看一下 request.form 
         # print(request.form)
-        python_records = web_select_specific(request.form, request.files)
+        python_records = web_select_specific(request.form, current_user.id)
         # return str(list(request.form.values())[10])
         # print(request.files['image'])
-        return str(0)
+        guidance_dict = get_guidance()
+        # print(guidance_dict[1]['EN_description'])
+        # return render_template('question.html', guidance_dict = guidance_dict)
+        return  render_template('index.html', guidance_dict = guidance_dict) 
+        # return str(0)
+        # return render_template("show_records.html", html_records=python_records)
+    else:
+        return render_template("select_recordshtml")
+
+@app.route("/question_system/return_backto_index", methods=['GET', 'POST'])
+def return_backto_index():
+    guidance_dict = get_guidance()
+    return  render_template('index.html', guidance_dict = guidance_dict) 
+
+@app.route("/question_system/score_input", methods=['GET', 'POST'])
+def score_input():
+    if request.method == 'POST':
+        # 偷看一下 request.form 
+        # print(request.form)
+        score_to_db(request.form, current_user.id)
+        # return str(list(request.form.values())[10])
+        # print(request.files['image'])
+        return render_template('score.html')
         # return render_template("show_records.html", html_records=python_records)
     else:
         return render_template("select_records.html")
@@ -343,4 +384,4 @@ def wordcloud():
     # return plt.show()
 # api.add_resource(Welcome, '/')
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=3003, debug=True)
+    app.run(host="0.0.0.0", port=3001, debug=True)
