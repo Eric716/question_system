@@ -1,4 +1,6 @@
-
+function gotologin(){
+  window.location.href = "login.html"
+}
 //--------------新增課程
 $('#add_course_button').on('click',function() {
     
@@ -17,6 +19,9 @@ $('#add_course_button').on('click',function() {
         
       };
       $.ajax(settings).done(function (response) {
+        if(response=='not_login'){
+          gotologin()
+      }
           if (response == '請輸入完整資料！'){
             alert("請輸入完整資料！");
           }
@@ -53,7 +58,9 @@ $(document).keypress(function(event){
       
     };
     $.ajax(settings).done(function (response) {
-
+      if(response=='not_login'){
+        gotologin()
+    }
         if (response == '請輸入完整資料！'){
           alert("請輸入完整資料！");
         }else if(response == "課程重複"){
@@ -89,6 +96,9 @@ function nowcourse() {
       
     };
     $.ajax(settings).done(function (response) {
+      if(response=='not_login'){
+        gotologin()
+    }
       coursetable_display("show")
       $( "#main" ).html( "<h1>選擇課程</h1>" );
       $( "#course_table" ).html( "<tr><th>課程名稱</th></tr>" );
@@ -102,6 +112,8 @@ function nowcourse() {
 
 }
 
+
+$(document).ready(userinfo);
 $('.user_info_button').on('click',userinfo
 );
 function userinfo(){
@@ -115,9 +127,12 @@ function userinfo(){
   }
 };
 $.ajax(settings).done(function (response) {
+  if(response=='not_login'){
+    gotologin()
+}
 console.log(response)
 userinfo_display("show");
-$( "#main" ).html( "<h1>個人資料</h1>" );
+$( "#main" ).html( "<h1>老師個人資料</h1>" );
 $( "#user_info_table" ).html( "<tr><th>暱稱</th><td>"+response["nickname"] + "</td></tr>" );
 $( "#user_info_table" ).append( "<tr><th>姓名</th><td >"+response["name"] + "</td></tr>" );
 $( "#user_info_table" ).append( "<tr><th>學校</th><td>"+response["school"] + "</td></tr>" );
@@ -148,7 +163,9 @@ function studentinfo() {
     },
   };
   $.ajax(settings).done(function (response) {
-
+    if(response=='not_login'){
+      gotologin()
+  }
   
   studentinfo_display("show");
   $( "#main" ).html( "<h1>學生資料</h1>" );
@@ -210,6 +227,9 @@ $('#user_info_modify_commit' ).on('click',function() {
     }
   };
   $.ajax(settings).done(function (response) {
+    if(response=='not_login'){
+      gotologin()
+  }
     console.log(response)
     if(response =="ok"){
       alert("修改成功")

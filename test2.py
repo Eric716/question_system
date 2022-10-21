@@ -1,40 +1,30 @@
-# b = []
-# for i in range(5):
-#     a = 0
-#     flag =0
-#     while(flag == 0):
-#         a = input()
-#         if int(a)>100 or int(a)<0:
-#             print('請輸入1~100的數值!')
-#             flag = 0
-#             break
-#         else:
-#             flag = 1
-#             continue
-#     b.append(a)
-# print(b)
-
-b = []
-for i in range(5):
-    # a = 0
-    # flag =0
-    # while(flag == 0):
-    #     a = input()
-    #     if int(a)>100 or int(a)<0:
-    #         print('請輸入1~100的數值!')
-    #         flag = 0
-    #         break
-    #     else:
-    #         flag = 1
-    #         continue
-    # b.append(a)
-    a = input()
-    if int(a)>100 or int(a)<0:
-        print('請輸入1~100的數值!')
-        i == 1
-        # break
-    else:
-        
-        pass
-    b.append(a)
-print(b)
+# -*- coding: UTF-8 -*-
+keys1=input("Enter keys:")
+#輸入Keys
+K=[]
+#建立一個List
+for i in range (5):
+    values1=input("Enter values:")
+    K.append(values1)
+keys2=input("Enter keys:")
+#輸入值並加入ListK裡面並重複5次
+A=[]
+for i in range (5):
+    values2=input("Enter values:")
+    A.append(values2)
+keys3=input("Enter keys:")
+B=[]
+for i in range (5):
+    values3=input("Enter values:")
+    B.append(values3)
+keys4=input("Enter keys:")
+C=[]
+for i in range (5):
+    values4=input("Enter values:")
+    C.append(values4)
+dict0={}
+dict0[keys1]=K
+dict0[keys2]=A
+dict0[keys3]=B
+dict0[keys4]=C
+print("dict0="+str(dict0))

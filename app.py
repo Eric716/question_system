@@ -31,7 +31,7 @@ login_manager.login_view = '/question_system/login'
 login_manager.login_message = '請先登入'
 login_manager.needs_refresh_message = (u"Session timedout, please re-login")
 login_manager.needs_refresh_message_category = "info"
-# app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=1)
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=6)
 
 class User(UserMixin):
     pass
@@ -131,6 +131,8 @@ def user_info_update():
 ############################
 @app.route('/new_course', methods=['POST'])
 def new_course():
+    if not current_user.is_authenticated:
+        return 'not_login'
     data = request.form.to_dict()
     cur = conn.cursor()
     course_name = data['course_name']
@@ -146,14 +148,20 @@ def new_course():
     return '新增成功'
 @app.route("/get_course")
 def getcourse():
+    if not current_user.is_authenticated:
+        return 'not_login'
     return get_dict_course(current_user.id)
 
 @app.route("/trans_course/<id>")
 def transcourse(id):
+    if not current_user.is_authenticated:
+        return 'not_login'
     return trans_course(id)
 
 @app.route("/course_selection/<action>", methods=['POST'])
 def course_select(action):
+    if not current_user.is_authenticated:
+        return 'not_login'
     data = request.form.to_dict()
     print('data',data)
     course_id = data['course_id']
@@ -170,37 +178,62 @@ def course_select(action):
 
 @app.route("/adding_question", methods=['POST'])
 def adding_question():
+    if not current_user.is_authenticated:
+        return 'not_login'
     data = request.form.to_dict()
     print('data',data)
     return add_question(data)
 
 @app.route("/listing_question", methods=['POST'])
 def listing_question():
+    if not current_user.is_authenticated:
+        return 'not_login'
     data = request.form.to_dict()
     print('data',data)
     return list_question(data)
 
 @app.route("/listing_question_response" , methods=['POST'])
 def list_response():
+    if not current_user.is_authenticated:
+        return 'not_login'
     data = request.form.to_dict()
     print('data',data)
-    return listing_question_response(data)
+    return listing_question_response(data,current_user.id)
+
+@app.route("/get_scores_comments",methods=['POST'])
+def get_scores_comments():
+    if not current_user.is_authenticated:
+        return 'not_login'
+    data = request.form.to_dict()
+    print('data',data)
+    return getting_scores_comments(data)
 
 @app.route("/get_scores_mean",methods=['POST'])
 def get_scores_mean():
+    if not current_user.is_authenticated:
+        return 'not_login'
     data = request.form.to_dict()
     print('data',data)
     return getting_scores_mean(data)
+
+@app.route("/student_get_course",methods = ['POST'])
+def student_get_course():
+    if not current_user.is_authenticated:
+        return 'not_login'
+    return student_getting_course(current_user.id)
 ############################
 #   使用者資訊
 ############################
 @app.route("/user_info")
-@login_required
 def user_info():
+    if not current_user.is_authenticated:
+        return 'not_login'
     return get_user_info(current_user.id)
 
 @app.route("/student_info/<name>", methods=['POST'])
 def student_info(name):
+    if not current_user.is_authenticated:
+        return 'not_login'
     if name=="all":
         student_info = get_student_info("","","")
         print(student_info)
@@ -229,6 +262,8 @@ def student_info(name):
 
 @app.route("/guidance/<name>", methods=['POST'])
 def guidance(name):
+    if not current_user.is_authenticated:
+        return 'not_login'
     if name == "get":
         data = request.form.to_dict()
         print('data',data)
@@ -247,6 +282,8 @@ def guidance(name):
 
 @login_required
 def user_info():
+    if not current_user.is_authenticated:
+        return 'not_login'
     return get_user_info(current_user.id)
 
 @app.route('/question_system/index_teacher.html')
@@ -262,6 +299,7 @@ def index_reporter():
 @app.route('/question_system/index.html')
 @login_required
 def index_student():
+    
     guidance_dict = get_guidance()
     # print(guidance_dict[1]['EN_description'])
     # return render_template('question.html', guidance_dict = guidance_dict)
@@ -283,29 +321,84 @@ def question():
     # print(guidance_dict[1]['EN_description'])
     return render_template('question.html', guidance_dict = guidance_dict)
 
+@app.route('/question_system/student_question.html')
+def question_html():
+    guidance_dict = get_guidance(request.args.get('course_id'))
+    return render_template('student_question.html', guidance_dict = guidance_dict)
+
 @app.route('/question_system/score.html')
 def score():
     return render_template('score.html')
     
-@app.route("/guidance_list")
-@login_required
-def guidance_list():
-    
-    return get_guidance()
+@app.route("/guidance_list",methods=['POST'])
 
-@app.route("/questions_list")
-# @login_required
+def guidance_list():
+    if not current_user.is_authenticated:
+        return 'not_login'
+    data = request.form.to_dict()
+    print(data)
+    return get_guidance(data['course_id'])
+
+@app.route("/questions_list",methods=['POST'])
+
 def questions_list():
+    if not current_user.is_authenticated:
+        return 'not_login'
+    data = request.form.to_dict()
+    # print(data)
+    # return get_questions(current_user.id)
     return get_questions()
 
-@app.route("/questions_hashtag_all")
+@app.route("/questions_list_student",methods=['POST'])
+# @login_required
+def questions_list_student():
+    if not current_user.is_authenticated:
+        return 'not_login'
+    data = request.form.to_dict()
+    return get_questions_student(current_user.id)
+    # return get_questions()
+@app.route("/delete_question",methods=['POST'])
+# @login_required
+def delete_question():
+    if not current_user.is_authenticated:
+        return 'not_login'
+    data = request.form.to_dict()
+    return deleting_question(data)
+
+
+
+@app.route("/questions_hashtag_all",methods=['POST'])
 # @login_required
 def questions_list2():
-    print(request.args.get('name'))
-    return get_hashtag_list_all()
+    if not current_user.is_authenticated:
+        return 'not_login'
+    # print(request.args.get('name'))
+    data = request.form.to_dict()
+    # print(data)
+    return get_hashtag_list_all(data)
+
+@app.route("/questions_hashtag_all2",methods=['POST'])
+def questions_list3():
+    if not current_user.is_authenticated:
+        return 'not_login'
+    # print(request.args.get('name'))
+    data = request.form.to_dict()
+    # print(data)
+    return get_hashtag_list_all2(data)
+
+@app.route("/test",methods=['POST'])
+def test2():
+    if not current_user.is_authenticated:
+        return 'not_login'
+    # print(request.args.get('name'))
+    data = request.form.to_dict()
+    # print(data)
+    return test(data)
 
 @app.route('/tables.html')
 def hello_world():
+    if not current_user.is_authenticated:
+        return 'not_login'
     cur = conn.cursor()
 
     # get annual sales rank
@@ -321,18 +414,23 @@ def hello_world():
 
     return render_template('tables.html', labels=labels, content=content)
 
-@app.route("/question_system/question_create", methods=['GET', 'POST'])
+@app.route("/question_system/question_create", methods=['POST'])
 def question_create():
+    if not current_user.is_authenticated:
+        return 'not_login'
     if request.method == 'POST':
         # 偷看一下 request.form 
-        # print(request.form)
-        python_records = web_select_specific(request.form, current_user.id)
+        data = request.form.to_dict()
+        # print(data)
+        python_records = web_select_specific(data, current_user.id)
         # return str(list(request.form.values())[10])
         # print(request.files['image'])
-        guidance_dict = get_guidance()
+        # guidance_dict = get_guidance()
         # print(guidance_dict[1]['EN_description'])
         # return render_template('question.html', guidance_dict = guidance_dict)
-        return  render_template('index.html', guidance_dict = guidance_dict) 
+        guidance_dict = get_guidance(request.args.get('course_id'))
+        return render_template('student_question.html', guidance_dict = guidance_dict)
+        # return  render_template('index.html', guidance_dict = guidance_dict) 
         # return str(0)
         # return render_template("show_records.html", html_records=python_records)
     else:
@@ -340,11 +438,15 @@ def question_create():
 
 @app.route("/question_system/return_backto_index", methods=['GET', 'POST'])
 def return_backto_index():
+    if not current_user.is_authenticated:
+        return 'not_login'
     guidance_dict = get_guidance()
     return  render_template('index.html', guidance_dict = guidance_dict) 
 
 @app.route("/question_system/score_input", methods=['GET', 'POST'])
 def score_input():
+    if not current_user.is_authenticated:
+        return 'not_login'
     if request.method == 'POST':
         # 偷看一下 request.form 
         # print(request.form)

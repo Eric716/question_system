@@ -12,8 +12,7 @@
         <meta name="author" content="">
 
         <title>出題系統</title>
-        <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
-        <script src="https://cdn.anychart.com/releases/v8/js/anychart-tag-cloud.min.js"></script>
+
         <!-- <style> html, body, #wordcloud { width: 100%; height: 100%; margin: 0;
         padding: 0; } </style> -->
         <!-- Custom fonts for this template-->
@@ -83,41 +82,16 @@
                 <!-- Nav Item - Pages Collapse Menu -->
 
                 <!-- Nav Item - Charts -->
-                <!-- <li class="nav-item"> <button class=" btn btn-user btn-block nav-link
-                now_course_button" type='button'> <i class="fas fa-fw fa-folder"></i>
-                <span>選擇課程</span></a> </button> </li> -->
+
                 <li class="nav-item">
                     <button
-                        class=" btn btn-user btn-block nav-link question_table_button"
+                        class=" btn btn-user btn-block nav-link now_course_button"
                         type='button'>
                         <i class="fas fa-fw fa-folder"></i>
-                        <span>題目列表</span></a>
+                        <span>課程列表</span></a>
                 </button>
             </li>
 
-            <li class="nav-item">
-                <button
-                    class=" btn btn-user btn-block nav-link guidance_list_button"
-                    type='button'>
-                    <i class="fas fa-fw fa-chart-area guidance_list_button"></i>
-                    <span>指導句</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="btn btn-user btn-block nav-link question_button">
-                    <i class="fas fa-fw fa-chart-area question_button"></i>
-                    <span>出題</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="btn btn-user btn-block nav-link score_button" href="score.html">
-                    <i class="fas fa-fw fa-chart-area score_button"></i>
-                    <span>評題</span></a>
-            </li>
-            <!-- <li class="nav-item"> <a class="nav-link" href="charts.html"> <i class="fas
-            fa-fw fa-chart-area"></i> <span>已評題目</span></a> </li> <li class="nav-item"> <a
-            class="nav-link" href="charts.html"> <i class="fas fa-fw fa-chart-area"></i>
-            <span>被評題目</span></a> </li> -->
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -147,50 +121,12 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    <!-- Topbar Search 中間上面的搜尋欄位-->
-                    <!-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2
-                    my-md-0 mw-100 navbar-search"> <div class="input-group"> <input type="text"
-                    class="form-control bg-light border-0 small" placeholder="Search for..."
-                    aria-label="Search" aria-describedby="basic-addon2"> <div
-                    class="input-group-append"> <button class="btn btn-primary" type="button"> <i
-                    class="fas fa-search fa-sm"></i> </button> </div> </div> </form> -->
+
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) 不知道在幹嘛-->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a
-                                class="nav-link dropdown-toggle"
-                                href="#"
-                                id="searchDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div
-                                class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
-                                    <div class="input-group">
-                                        <input
-                                            type="text"
-                                            class="form-control bg-light border-0 small"
-                                            placeholder="Search for..."
-                                            aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </li>
+
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -235,10 +171,7 @@
 
                     <div class="form-group row">
                         <!--width: 100%; height: 500pt ;margin: 0 ;padding: 0;-->
-                        <div
-                            id="wordcloud"
-                            class="col-sm-12 cloud"
-                            style="width: 100%; height: 500pt ;margin: 0 ;padding: 0; display:none"></div>
+  
 
                         <div id="main" class="col-sm-12 user_info_class"></div>
                         <!-- <div id="user_info_main" class="col-sm-12 user_info_class" ></div> -->
@@ -247,7 +180,8 @@
                         <table
                             id="user_info_table"
                             class="table table-bordered user_info_class"
-                            style='display:none'></table>
+                            style='display:none'>
+                        </table>
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <button
                                 class="btn btn-primary btn-user btn-block user_info_class"
@@ -270,414 +204,11 @@
                                 退出修改
                             </button>
                         </div>
-                        <!-- </div> -->
-                        <!-- </div> -->
-                        <div id="guidance_list_main" class="col-sm-12  guidance_list"></div>
-                        <div class="container guidance_list">
-                            <div class="table-responsive guidance_list">
-                                <table
-                                    id="guidance_list"
-                                    class="table table-bordered guidance_list"
-                                    style='display:none'
-                                    width="100%"
-                                    cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>EN_description</th>
-                                            <th>CN_description</th>
-                                            <th>EN_example</th>
-                                            <th>CN_example</th>
-                                            <th>course_id</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="container" style='display:none' id="question">
-                            <div class="row">
-                                <div class="col">
-                                    <h1 class="offset-1">學生出題介面</h1>
-                                    <!-- <h2>Postgres Select Query</h2> -->
-                                    <style>
-                                        .input1 {
-                                            width: 400px;
-                                        }
-                                        .input2 {
-                                            width: 400px;
-                                            height: 300px;
-                                        }
-                                    </style>
-                                    <form
-                                        method="post"
-                                        action="/question_system/question_create"
-                                        enctype="multipart/form-data">
-                                        <!-- method="post" action="/select_records" -->
-                                        <!-- <div class="row"><div class="col-1">SELECT</div></div> <div
-                                        class="row"><div class="col-2 offset-1">*</div></div> <div class="row"><div
-                                        class="col-1">FROM</div></div> <div class="row"><div class="col-2
-                                        offset-1">alpaca_training</div></div> <div class="row"><div
-                                        class="col-1">WHERE</div></div> -->
-
-                                        <!-- <div class="row"><div class="col-1">選擇題</div></div> -->
-
-                                        <div class="form-group row">
-                                            <label for="category" class="col-2 offset-1 col-form-label">題目類型</label>
-                                            <div class="col-3">
-                                                <select name="category" class="form-control input1" id="category">
-                                                    <option value="0">選擇題</option>
-                                                    <option value="1">簡答題</option>
-                                                </select>
-                                                <!-- <input type="text" class="form-control" id="ans" name="ans"
-                                                placeholder="答案"> <small class="form-text">答案</small> -->
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="content" class="col-2 offset-1 col-form-label">指導句</label>
-                                            <div class="col-3">
-                                                <!-- <input type="text" class="form-control" id="guidance" name="guidance"
-                                                placeholder="指導句"> <small class="form-text">指導句</small> -->
-                                                <select
-                                                    class="form-control input1"
-                                                    name="Item_1"
-                                                    id="guidance_select"
-                                                    required="required">
-                                                    <option value=""></option>
-                                                    {% for i in guidance_dict %}
-                                                        <option value={{i}}="}">{{guidance_dict[i]['CN_description']}}</option>
-                                                    {% endfor %}
-                                                    <!-- <option value="else">else</option> -->
-                                                </select>
-                                            </div>
-
-                                        </div>
-
-                                        <!-- style="width: 400px; height: 300px;" -->
-                                        <div class="form-group row">
-                                            <label for="content" class="col-2 offset-1 col-form-label">題目內容</label>
-                                            <div class="col-3">
-                                                <input
-                                                    type="text"
-                                                    class="form-control input2"
-                                                    id="content2"
-                                                    name="content"
-                                                    placeholder="題目內容"
-                                                    required="required">
-                                                <small class="form-text">請輸入題目內容</small>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="picture" class="col-2 offset-1 col-form-label">插入圖片</label>
-                                            <div class="col-3">
-                                                <input
-                                                    name="image"
-                                                    type="file"
-                                                    id="file"
-                                                    accept="image/gif, image/jpeg, image/png"
-                                                    onchange="verificationPicFile(this)"
-                                                    required="required">
-                                                <img id="output"/>
-                                                <script>
-
-                                                    function verificationPicFile(file) {
-                                                        const reader = new FileReader();
-                                                        reader.onload = function (ev) {
-                                                            // base64码
-                                                            var imgFile = ev.target.result; //或e.target都是一样的
-                                                            // document.querySelector("img").src= ev.target.result;
-                                                            // console.log(ev.target.result)
-                                                            var base64img = imgFile
-                                                            console.log(ev.target.result)
-                                                            $("#img_base64").val(base64img);
-
-                                                        }
-                                                        reader.readAsDataURL(file.files[0]);
-
-                                                        var fileSize = 0;
-                                                        var fileMaxSize = 1024; //1M
-                                                        var filePath = file.value;
-                                                        if (filePath) {
-                                                            fileSize = file
-                                                                .files[0]
-                                                                .size;
-                                                            var size = fileSize / 1024;
-                                                            console.log(size + "KB");
-                                                            // alert("文件大小為"+size)
-                                                            if (size > fileMaxSize) {
-                                                                alert("文件大小不能大於1M!");
-                                                                file.value = "";
-                                                                return false;
-                                                            } else if (size <= 0) {
-                                                                alert("文件大小不能為0M!");
-                                                                file.value = "";
-                                                                return false;
-                                                            }
-                                                        } else {
-                                                            return false;
-                                                        }
-
-                                                        var output = document.getElementById('output');
-                                                        output.src = URL.createObjectURL(event.target.files[0]);
-                                                        output.onload = function () {
-                                                            URL.revokeObjectURL(output.src) // free memory
-                                                        }
-                                                    }
-                                                </script>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row selection">
-                                            <label for="selectA" class="col-2 offset-1 col-form-label">選項A</label>
-                                            <div class="col-3">
-                                                <input
-                                                    type="text"
-                                                    class="form-control input1"
-                                                    id="selectA"
-                                                    name="selectA"
-                                                    placeholder="選項A"
-                                                    required="required">
-                                                <small class="form-text">選項A</small>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row selection">
-                                            <label for="selectB" class="col-2 offset-1 col-form-label">選項B</label>
-                                            <div class="col-3">
-                                                <input
-                                                    type="text"
-                                                    class="form-control input1"
-                                                    id="selectB"
-                                                    name="selectB"
-                                                    placeholder="選項B"
-                                                    required="required">
-                                                <small class="form-text">選項B</small>
-                                            </div>
-
-                                        </div>
-                                        <div class="form-group row selection">
-                                            <label for="selectC" class="col-2 offset-1 col-form-label">選項C</label>
-                                            <div class="col-3">
-                                                <input
-                                                    type="text"
-                                                    class="form-control input1"
-                                                    id="selectC"
-                                                    name="selectC"
-                                                    placeholder="選項C"
-                                                    required="required">
-                                                <small class="form-text">選項C</small>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row selection">
-                                            <label for="selectD" class="col-2 offset-1 col-form-label">選項D</label>
-                                            <div class="col-3">
-                                                <input
-                                                    type="text"
-                                                    class="form-control input1"
-                                                    id="selectD"
-                                                    name="selectD"
-                                                    placeholder="選項D"
-                                                    required="required">
-                                                <small class="form-text">選項D</small>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row selection">
-                                            <label for="ans" class="col-2 offset-1 col-form-label">答案</label>
-                                            <div class="col-3 ">
-                                                <select name="ans" class="form-control input1" id="ans_selection">
-                                                    <!-- <option value=""></option> -->
-                                                    <option value="A">A</option>
-                                                    <option value="B">B</option>
-                                                    <option value="C">C</option>
-                                                    <option value="D">D</option>
-                                                </select>
-                                                <!-- <small class="form-text">選項</small> -->
-                                            </div>
-                                            <!-- <div class="col-3 short_answer" style='display:none'> <input type="text"
-                                            class="form-control input1" id="ans_short_answer" name="答案" placeholder="答案">
-                                            <small class="form-text">答案</small> </div> -->
-                                        </div>
-
-                                        <div class="form-group row short_answer" style='display:none'>
-                                            <label for="ans" class="col-2 offset-1 col-form-label">答案</label>
-                                            <div class="col-3 short_answer">
-                                                <input
-                                                    type="text"
-                                                    class="form-control input1"
-                                                    id="ans_short_answer"
-                                                    name="答案"
-                                                    placeholder="答案">
-
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="description" class="col-2 offset-1 col-form-label">詳解</label>
-                                            <div class="col-3">
-                                                <input
-                                                    type="text"
-                                                    class="form-control input1"
-                                                    id="description"
-                                                    name="description"
-                                                    placeholder="詳解"
-                                                    required="required">
-                                                <small class="form-text">詳解</small>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="hint" class="col-2 offset-1 col-form-label">提示</label>
-                                            <div class="col-3">
-                                                <input
-                                                    type="text"
-                                                    class="form-control input1"
-                                                    id="hint"
-                                                    name="hint"
-                                                    placeholder="hint"
-                                                    required="required">
-                                                <small class="form-text">hint</small>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="hashtagA" class="col-2 offset-1 col-form-label">hashtagA</label>
-                                            <div class="col-3">
-                                                <input
-                                                    type="text"
-                                                    class="form-control input1"
-                                                    id="hashtagA"
-                                                    name="hashtagA"
-                                                    placeholder="hashtagA"
-                                                    required="required">
-                                                <small class="form-text">hashtagA</small>
-                                            </div>
-
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="hashtagB" class="col-2 offset-1 col-form-label">hashtagB</label>
-                                            <div class="col-3">
-                                                <input
-                                                    type="text"
-                                                    class="form-control input1"
-                                                    id="hashtagB"
-                                                    name="hashtagB"
-                                                    placeholder="hashtagB"
-                                                    required="required">
-                                                <small class="form-text">hashtagB</small>
-                                            </div>
-
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="hashtagC" class="col-2 offset-1 col-form-label">hashtagC</label>
-                                            <div class="col-3">
-                                                <input
-                                                    type="text"
-                                                    class="form-control input1"
-                                                    id="hashtagC"
-                                                    name="hashtagC"
-                                                    placeholder="hashtagC"
-                                                    required="required">
-                                                <small class="form-text">hashtagC</small>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row" style='display:none'>
-                                            <label for="content" class="col-2 offset-1 col-form-label">圖片內容</label>
-                                            <div class="col-3">
-                                                <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    id="img_base64"
-                                                    name="img_base64"
-                                                    placeholder="img_base64">
-                                                <small class="form-text">pic</small>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="hashtagB" class="col-2 offset-1 col-form-label">radar1</label>
-                                            <div class="col-3">
-                                                <select
-                                                    class="form-control radar input1"
-                                                    name="radar1"
-                                                    id="radar1"
-                                                    required="required">
-                                                    <!-- <option value=""></option> -->
-                                                </select>
-                                                <small class="form-text">1 ~ 10分</small>
-                                            </div>
-
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="hashtagC" class="col-2 offset-1 col-form-label">radar2</label>
-                                            <div class="col-3">
-                                                <select
-                                                    class="form-control radar input1"
-                                                    name="radar2"
-                                                    id="radar2"
-                                                    required="required">
-                                                    <!-- <option value=""></option> -->
-                                                </select>
-                                                <small class="form-text">1 ~ 10分</small>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="hashtagC" class="col-2 offset-1 col-form-label">radar3</label>
-                                            <div class="col-3">
-                                                <select
-                                                    class="form-control radar input1"
-                                                    name="radar3"
-                                                    id="radar3"
-                                                    required="required">
-                                                    <!-- <option value=""></option> -->
-                                                </select>
-                                                <small class="form-text">1 ~ 10分</small>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="hashtagC" class="col-2 offset-1 col-form-label">radar4</label>
-                                            <div class="col-3">
-                                                <select
-                                                    class="form-control radar input1"
-                                                    name="radar4"
-                                                    id="radar4"
-                                                    required="required">
-                                                    <!-- <option value=""></option> -->
-                                                </select>
-                                                <small class="form-text">1 ~ 10分</small>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="hashtagC" class="col-2 offset-1 col-form-label">radar5</label>
-                                            <div class="col-3">
-                                                <select
-                                                    class="form-control radar input1"
-                                                    name="radar5"
-                                                    id="radar5"
-                                                    required="required">
-                                                    <!-- <option value=""></option> -->
-                                                </select>
-                                                <small class="form-text">1 ~ 10分</small>
-                                            </div>
-                                        </div>
-                                        <button
-                                            type="submit"
-                                            class="btn btn-primary  col-2 offset-1"
-                                            data-action="submit">出題</button>
-
-                                    </form>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div id="question_table_main" class="col-sm-12 question_table"></div>
                         <table
-                            id="question_table"
-                            class="table table-bordered question_table"
-                            style='display:none'></table>
-                        <!--style='display:none'-->
-
+                        id="course_table"
+                        class="table table-bordered"
+                        style='display:none'>
+                    </table>
                         <!-- /.container-fluid -->
                     </div>
                 </div>
@@ -745,8 +276,7 @@
     <script src="vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
+
     <script src="js/index.js"></script>
     <script src="js/student_index.js"></script>
     <script type="text/javascript">
