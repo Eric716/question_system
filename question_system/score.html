@@ -55,10 +55,16 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link go_back btn">
+                <a class="nav-link go_back btn"  > 
                     <i class="fas fa-fw fa-tachometer-alt go_back"></i>
                     <span>返回上一頁</span></a>
                 <!-- 中間title文字 -->
+            </li>
+            <li class="nav-item">
+                <button class=" btn btn-user btn-block nav-link question_table_button" type='button'>
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>選擇章節</span></a>
+                </button>
             </li>
             <!-- Divider -->
 
@@ -150,7 +156,15 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+                    <div class="table-responsive question_table" width="100%"
+                            style="padding-right: 0.75rem; padding-left: 0.75rem; display:none">
+                            <!-- <div class="container "> -->
+                    <div class="table-responsive ">
+                            <table id="question_req" class="table table-bordered question_table" style='display:none'>
+                            </table>
+                            
+                        </div>
+                    </div>
                     <!-- Page Heading -->
                     <!-- <h1 class="h3 mb-2 text-gray-800">學生出題頁面</h1> -->
                     <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate
@@ -177,13 +191,13 @@
                             height: 300px;
                         }
                     </style>
-                    <div class="container">
+                    <div class="container" id="score" style="display: none;">
                         <div class="row">
                             <div class="col ">
                                 <h1 class="offset-1">學生評題介面</h1>
                                 <!-- <h2>Postgres Select Query</h2> -->
-
-                                <form method="post" action="/question_system/score_input" enctype="multipart/form-data">
+                                <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+                                <form method="post" action="/question_system/score_input" enctype="multipart/form-data"  target="dummyframe">
                                     <!-- <div class="row"><div class="col-1">SELECT</div></div> <div
                                         class="row"><div class="col-2 offset-1">*</div></div> <div class="row"><div
                                         class="col-1">FROM</div></div> <div class="row"><div class="col-2
@@ -221,7 +235,7 @@
                                     <div class="form-group row">
                                         <label for="comments" class="col-2 offset-1 col-form-label">文字評語</label>
                                         <div class="col-3">
-                                            <input type="text" class="form-control input2" id="comments" name="comments"
+                                            <input type="text" class="form-control input2 disable_class" id="comments" name="comments"
                                                 placeholder="評語" required="required">
                                             <small class="form-text">評語</small>
                                         </div>
@@ -230,7 +244,7 @@
                                     <div class="form-group row">
                                         <label for="hashtagA" class="col-2 offset-1 col-form-label">文字評語hashtagA</label>
                                         <div class="col-3">
-                                            <input type="text" class="form-control input1" id="hashtagA_score"
+                                            <input type="text" class="form-control input1 disable_class" id="hashtagA_score"
                                                 name="hashtagA_score" placeholder="文字評語hashtagA" required="required">
                                             <small class="form-text">請從文字評語中擷取重點</small>
                                         </div>
@@ -239,7 +253,7 @@
                                     <div class="form-group row">
                                         <label for="hashtagB" class="col-2 offset-1 col-form-label">文字評語hashtagB</label>
                                         <div class="col-3">
-                                            <input type="text" class="form-control input1" id="hashtagB_score"
+                                            <input type="text" class="form-control input1 disable_class" id="hashtagB_score"
                                                 name="hashtagB_score" placeholder="文字評語hashtagB" required="required">
                                             <small class="form-text">請從文字評語中擷取重點</small>
                                         </div>
@@ -248,7 +262,7 @@
                                     <div class="form-group row">
                                         <label for="hashtagC" class="col-2 offset-1 col-form-label">文字評語hashtagC</label>
                                         <div class="col-3">
-                                            <input type="text" class="form-control input1" id="hashtagC_score"
+                                            <input type="text" class="form-control input1 disable_class" id="hashtagC_score"
                                                 name="hashtagC_score" placeholder="文字評語hashtagC" required="required">
                                             <small class="form-text">請從文字評語中擷取重點</small>
                                         </div>
@@ -259,7 +273,7 @@
                                             id="radar1_label">雷達圖分數1</label>
                                         <div class="col-3">
 
-                                            <select class="form-control radar input1" name="radar1" id="radar1">
+                                            <select class="form-control radar input1 disable_class" name="radar1" id="radar1">
                                                 <!-- <option value=""></option> -->
                                             </select>
                                             <small class="form-text">1 ~ 10分</small>
@@ -271,7 +285,7 @@
                                         <label for="selectB" class="col-2 offset-1 col-form-label"
                                             id="radar2_label">雷達圖分數2</label>
                                         <div class="col-3">
-                                            <select class="form-control radar input1" name="radar2" id="radar2">
+                                            <select class="form-control radar input1 disable_class" name="radar2" id="radar2">
                                                 <!-- <option value=""></option> -->
                                             </select>
                                             <small class="form-text">1 ~ 10分</small>
@@ -282,7 +296,7 @@
                                         <label for="selectC" class="col-2 offset-1 col-form-label"
                                             id="radar3_label">雷達圖分數3</label>
                                         <div class="col-3">
-                                            <select class="form-control radar input1" name="radar3" id="radar3">
+                                            <select class="form-control radar input1 disable_class" name="radar3" id="radar3">
                                                 <!-- <option value=""></option> -->
                                             </select>
                                             <small class="form-text">1 ~ 10分</small>
@@ -292,7 +306,7 @@
                                         <label for="selectD" class="col-2 offset-1 col-form-label"
                                             id="radar4_label">雷達圖分數4</label>
                                         <div class="col-3">
-                                            <select class="form-control radar input1" name="radar4" id="radar4">
+                                            <select class="form-control radar input1 disable_class" name="radar4" id="radar4">
                                                 <!-- <option value=""></option> -->
                                             </select>
                                             <small class="form-text">1 ~ 10分</small>
@@ -302,14 +316,14 @@
                                         <label for="selectD" class="col-2 offset-1 col-form-label"
                                             id="radar5_label">雷達圖分數5</label>
                                         <div class="col-3">
-                                            <select class="form-control radar input1" name="radar5" id="radar5">
+                                            <select class="form-control radar input1 disable_class" name="radar5" id="radar5">
                                                 <!-- <option value=""></option> -->
                                             </select>
                                             <small class="form-text">1 ~ 10分</small>
                                         </div>
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary col-2 offset-1 ">送出</button>
+                                    <button type="submit" class="btn btn-primary col-2 offset-1 summut_question">送出</button>
 
                                 </form>
                             </div>
@@ -384,7 +398,7 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-    <script src="js/student_question.js"></script>
+    <script src="js/score.js"></script>
     <script src="js/index.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {

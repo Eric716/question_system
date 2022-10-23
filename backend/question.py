@@ -96,7 +96,7 @@ def get_guidance(course_id = ""):
     # print(dict)
     return dict
 
-def get_questions(user_id = ""):
+def get_questions(data,user_id=""):
     conn = pymysql.connect(host = '127.0.0.1',
                        port = 3306,
                        user = 'qsweb',
@@ -104,8 +104,9 @@ def get_questions(user_id = ""):
                        db = 'question_system',
                        charset='utf8')
     cur = conn.cursor()
+    question_req_id = data['question_req_id']
     if user_id == "":
-        sql = "select * from `question`"
+        sql = "select * from `question` WHERE `section_id` = "+ str(question_req_id) 
     else:
         sql = "SELECT * FROM `question` WHERE `user_id` = '" + user_id + "'"
     cur.execute(sql)

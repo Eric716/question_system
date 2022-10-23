@@ -134,13 +134,12 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    <!-- Topbar Search 中間上面的搜尋欄位-->
-                    <!-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2
-                    my-md-0 mw-100 navbar-search"> <div class="input-group"> <input type="text"
-                    class="form-control bg-light border-0 small" placeholder="Search for..."
-                    aria-label="Search" aria-describedby="basic-addon2"> <div
-                    class="input-group-append"> <button class="btn btn-primary" type="button"> <i
-                    class="fas fa-search fa-sm"></i> </button> </div> </div> </form> -->
+                     <!-- Topbar Search 中間上面的搜尋欄位-->
+
+                     <div class="navbar-nav ml-auto">
+                        <h1 class="h3 mb-0 text-gray-800" id="class_name"></h1>
+
+                    </div>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -262,7 +261,7 @@
                                             <th>CN_description</th>
                                             <th>EN_example</th>
                                             <th>CN_example</th>
-                                            <th>course_id</th>
+                                            <th>course_name</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -293,8 +292,10 @@
                                         </select>
                                         </div>
                                     </div> -->
-                                    <form method="post" action="/question_system/question_create"
-                                        enctype="multipart/form-data">
+                                    <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+
+                                    <form id = 'myForm' method="post" action="/question_system/question_create"
+                                        enctype="multipart/form-data" target="dummyframe">
                                         <!-- method="post" action="/select_records" -->
                                         <!-- <div class="row"><div class="col-1">SELECT</div></div> <div
                                         class="row"><div class="col-2 offset-1">*</div></div> <div class="row"><div
@@ -415,7 +416,7 @@
                                         <div class="form-group row selection">
                                             <label for="selectA" class="col-2 offset-1 col-form-label">選項A</label>
                                             <div class="col-3">
-                                                <input type="text" class="form-control input1 disable_class"
+                                                <input type="text" class="form-control input1 disable_class selecting"
                                                     id="selectA" name="selectA" placeholder="選項A" required="required">
                                                 <small class="form-text">選項A</small>
                                             </div>
@@ -423,7 +424,7 @@
                                         <div class="form-group row selection">
                                             <label for="selectB" class="col-2 offset-1 col-form-label">選項B</label>
                                             <div class="col-3">
-                                                <input type="text" class="form-control input1 disable_class"
+                                                <input type="text" class="form-control input1 disable_class selecting"
                                                     id="selectB" name="selectB" placeholder="選項B" required="required">
                                                 <small class="form-text">選項B</small>
                                             </div>
@@ -432,7 +433,7 @@
                                         <div class="form-group row selection">
                                             <label for="selectC" class="col-2 offset-1 col-form-label">選項C</label>
                                             <div class="col-3">
-                                                <input type="text" class="form-control input1 disable_class"
+                                                <input type="text" class="form-control input1 disable_class selecting"
                                                     id="selectC" name="selectC" placeholder="選項C" required="required">
                                                 <small class="form-text">選項C</small>
                                             </div>
@@ -440,7 +441,7 @@
                                         <div class="form-group row selection">
                                             <label for="selectD" class="col-2 offset-1 col-form-label">選項D</label>
                                             <div class="col-3">
-                                                <input type="text" class="form-control input1 disable_class"
+                                                <input type="text" class="form-control input1 disable_class selecting"
                                                     id="selectD" name="selectD" placeholder="選項D" required="required">
                                                 <small class="form-text">選項D</small>
                                             </div>
@@ -616,13 +617,21 @@
                                                 <small class="form-text">1 ~ 10分</small>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary  col-2 offset-1 disable_class"
-                                            data-action="submit">出題</button>
+                                        <div class="form-group row" style="display:none">
+                                            <label for="course_id" class="col-2 offset-1 col-form-label">course_id</label>
+                                            <div class="col-3">
+                                                <input type="text" class="form-control input1 disable_class"
+                                                    id="course_id" name="course_id" placeholder="course_id">
+                                                <small class="form-text">course_id</small>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary  col-2 offset-1 disable_class summut_question"
+                                            data-action="submit" >出題</button>
 
                                     </form>
                                 </div>
                             </div>
-
+                      
                         </div>
 
                         <div id="question_table_main" class="col-sm-12 question_table "></div>

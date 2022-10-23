@@ -25,7 +25,7 @@ $('.guidance_list_button').on('click', function () {
             const a = Object
                 .keys(response)
                 .length;
-            // console.log(response);
+            console.log(response);
 
             // for(i = 1; i <= a; i++) userinfo_display("show");
             // $("#guidance_list").css("display","table");
@@ -40,7 +40,7 @@ $('.guidance_list_button').on('click', function () {
             var class_name = document.getElementById("class_name").innerText
 
             for (var k in response) {
-                // console.log(k)
+                console.log(k)
                 $("#guidance_list>tbody").append("<tr>");
                 $("#guidance_list>tbody").append(
                     "<td>" + response[k]["EN_description"] + "</td>"
@@ -74,47 +74,6 @@ var loadFile = function (event) {
 };
 
 $(document).ready(function () {
-    $('.disable_class').prop("disabled", "disable");
-    var data = getUrlVars()
-    course_id = data["course_id"];
-
-
-    // var data = getUrlVars()
-    // course_id = data["course_id"];
-    var settings = {
-        "async": true,
-        "url": "/listing_question",
-        "method": "post",
-        "timeout": 0,
-        "headers": {
-            "Content-Type": "application/x-www-form-urlencoded"
-        }, "data": {
-            "course_id": course_id,
-        },
-    };
-    $
-        .ajax(settings)
-        .done(function (response) {
-            if (response == 'not_login') {
-                gotologin()
-            }
-            const a = Object
-                .keys(response)
-                .length;
-            // console.log(response);
-
-            for (const [key, value] of Object.entries(response)) {
-                console.log(key);
-                $("#question_request_select").append(
-                    "<option value=" + key + ">" +  value['title'] + "</option>"
-                )
-            }
-        });
-
-});
-
-$(document).ready(function () {
-
     $('#guidance_select').change(function () {
         var t = $("#guidance_select option:selected").text();
         console.log(t);
@@ -144,28 +103,17 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    var data = getUrlVars()
-    course_id = data["course_id"];
-    document.getElementById("course_id").value = course_id
-    console.log('document.getElementById("course_id").value')
-    console.log(document.getElementById("course_id").value)
     $('#category').change(function () {
         var t = $("#category option:selected").val();
         console.log(t);
         if (t == 1) {
             $(".selection").css("display", "none");
             $(".short_answer").css("display", "flex");
-            $('.selecting').removeAttr('required');
-            $(".selecting").val('');
-            $('#ans_short_answer').attr('required', 'required');
-
         } else {
             $(".selection").css("display", "flex");
             $(".short_answer").css("display", "none");
-            $('.selecting').attr('required', 'required');
-            $('#ans_short_answer').removeAttr('required');
-            console.log('remove')
         }
+
     });
 });
 
@@ -225,6 +173,171 @@ function cloud_display(status) {
     }
 }
 
+$(document).ready(function () {
+    $('.disable_class').prop("disabled", "disable");
+    var data = getUrlVars()
+    course_id = data["course_id"];
+    var settings = {
+        "async": true,
+        "url": "/questions_list",
+        "method": "post",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }, "data": {
+            "course_id": course_id,
+        },
+    };
+    $
+        .ajax(settings)
+        .done(function (response) {
+            if (response == 'not_login') {
+                gotologin()
+            }
+            const a = Object
+                .keys(response)
+                .length;
+            // console.log(a);
+
+            for (const [key, value] of Object.entries(response)) {
+                // console.log(key);
+                $("#category2").append(
+                    "<option value=" + key + ">" + key + ": " + value['content'] + "</option>"
+                )
+            }
+        });
+
+    // var data = getUrlVars()
+    // course_id = data["course_id"];
+    var settings = {
+        "async": true,
+        "url": "/listing_question",
+        "method": "post",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }, "data": {
+            "course_id": course_id,
+        },
+    };
+    $
+        .ajax(settings)
+        .done(function (response) {
+            if (response == 'not_login') {
+                gotologin()
+            }
+            const a = Object
+                .keys(response)
+                .length;
+            // console.log(response);
+
+            for (const [key, value] of Object.entries(response)) {
+                console.log(key);
+                $("#question_request_select").append(
+                    "<option value=" + key + ">" + key + ": " + value['title'] + "</option>"
+                )
+            }
+        });
+
+});
+
+
+$('#category2').change(function () {
+    var data = getUrlVars()
+    course_id = data["course_id"];
+    var settings = {
+        "async": true,
+        "url": "/questions_list",
+        "method": "post",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }, "data": {
+            "course_id": course_id,
+        },
+    };
+    $
+        .ajax(settings)
+        .done(function (response) {
+            if (response == 'not_login') {
+                gotologin()
+            }
+            const a = Object
+                .keys(response)
+                .length;
+            // console.log(a);
+
+            var t = $("#category2 option:selected").val();
+            console.log(t);
+            console.log("45485f86dh486ef4drhedrh");
+            // console.log(response[t]['figure']);
+            $("#questions_list").html(
+                "<tr><th width=100>題目內容</th><td width=200>" + "hujigigwgiolwgioliolwegjiolwegjiolweg" + "</td></" +
+                "tr>"
+            );
+            $("#questions_list").html(
+                "<tr><th width=100>題目內容</th><td width=200>" + response[t]['content'] + "</td></" +
+                "tr>"
+            );
+            $("#questions_list").append(
+                "<tr><th>選項A</th><td>" + response[t]['selectA'] + "</td></tr>"
+            );
+            $("#questions_list").append(
+                "<tr><th>選項B</th><td>" + response[t]['selectB'] + "</td></tr>"
+            );
+            $("#questions_list").append(
+                "<tr><th>選項C</th><td>" + response[t]['selectC'] + "</td></tr>"
+            );
+            $("#questions_list").append(
+                "<tr><th>選項D</th><td>" + response[t]['selectD'] + "</td></tr>"
+            );
+            $("#questions_list").append(
+                "<tr><th>提示</th><td>" + response[t]['hint'] + "</td></tr>"
+            );
+            $("#questions_list").append(
+                "<tr><th>答案</th><td>" + response[t]['ans'] + "</td></tr>"
+            );
+            $("#questions_list").append(
+                "<tr><th>詳解</th><td>" + response[t]['description'] + "</td></tr>"
+            );
+            $("#questions_list").append(
+                "<tr><th>圖片</th><td>" + "<img src=" + response[t]['figure'] + ' style="width: 200pt"></td>'+ "</tr>"
+            );
+        });
+
+    var t = $("#category2 option:selected").val();
+    console.log(t);
+    // $("#content2").val(t);
+    var settings = {
+        "async": true,
+        "url": "/questions_list",
+        "method": "post",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }, "data": {
+            "course_id": course_id,
+        },
+    };
+    $
+        .ajax(settings)
+        .done(function (response) {
+            if (response == 'not_login') {
+                gotologin()
+            }
+            // console.log(response[t]);
+            // a = document.getElementById("radar1_label")
+            document.getElementById("radar1_label").innerHTML = response[t]['radar1']
+            document.getElementById("radar2_label").innerHTML = response[t]['radar2']
+            document.getElementById("radar3_label").innerHTML = response[t]['radar3']
+            document.getElementById("radar4_label").innerHTML = response[t]['radar4']
+            document.getElementById("radar5_label").innerHTML = response[t]['radar5']
+
+        });
+    // $('.disable_class').prop("disabled", "disable");
+    // $('.disable_class').prop("disabled", "");
+
+});
 function Base64ToImage(base64img, callback) {
     var img = new Image();
     img.onload = function () {
@@ -238,7 +351,11 @@ $('.score_button').on('click', function () {
     window.location.href = "score.html?course_id=" + course_id
 })
 
-
+$('.go_back').on('click', function () {
+    var data = getUrlVars()
+    course_id = data["course_id"];
+    window.location.href = "student_question.html?course_id=" + course_id
+})
 
 function get_guidance_content(guidance_id) {
     var data = getUrlVars()
@@ -464,9 +581,7 @@ function getUrlVars() {
 anychart.onDocumentReady(function (question_id) {
     // console.log("1");
     var data = getUrlVars()
-    course_id = data["course_id"];
     question_id = data['question_id']
-    question_req_id = data['question_req_id']
 
     if (question_id == undefined) {
 
@@ -479,61 +594,58 @@ anychart.onDocumentReady(function (question_id) {
             "method": "post",
             "timeout": 0,
             "headers": {
-              "Content-Type": "application/x-www-form-urlencoded"
+                "Content-Type": "application/x-www-form-urlencoded"
             },
             "data": {
-              "question_id": question_id,
-              "question_req_id": question_req_id,
-      
+                "question_id": question_id,
+
+
             },
-          };
-          $.ajax(settings).done(function (response) {
+        };
+        $.ajax(settings).done(function (response) {
             var chartData = {
-              title: '雷達圖成績',
-              // header: ['#', 'Day (max)', 'Night (min)'],
-              // rows: [
-              //   ['January', 8.1,,
-              //   ['February', 8.4],
-              //   ['March', 11.4],
-              //   ['April', 14.2],
-              //   ['May', 17.9],
-      
-              // ]
-              header: ['#', '自評', '同學評分'],
-              rows: [
-                [response['radar_index']['radarA'], response['radar_value_self']['radarA'], response['radar_value']['radarA']],
-                [response['radar_index']['radarB'], response['radar_value_self']['radarB'], response['radar_value']['radarB']],
-                [response['radar_index']['radarC'], response['radar_value_self']['radarC'], response['radar_value']['radarC']],
-                [response['radar_index']['radarD'], response['radar_value_self']['radarD'], response['radar_value']['radarD']],
-                [response['radar_index']['radarE'], response['radar_value_self']['radarE'], response['radar_value']['radarE']],
-              ]
+                title: '雷達圖成績',
+                // header: ['#', 'Day (max)', 'Night (min)'],
+                // rows: [
+                //   ['January', 8.1,,
+                //   ['February', 8.4],
+                //   ['March', 11.4],
+                //   ['April', 14.2],
+                //   ['May', 17.9],
+
+                // ]
+                header: ['#', '自評', '同學評分'],
+                rows: [
+                    [response['radar_index']['radarA'], response['radar_value_self']['radarA'], response['radar_value']['radarA']],
+                    [response['radar_index']['radarB'], response['radar_value_self']['radarB'], response['radar_value']['radarB']],
+                    [response['radar_index']['radarC'], response['radar_value_self']['radarC'], response['radar_value']['radarC']],
+                    [response['radar_index']['radarD'], response['radar_value_self']['radarD'], response['radar_value']['radarD']],
+                    [response['radar_index']['radarE'], response['radar_value_self']['radarE'], response['radar_value']['radarE']],
+                ]
             };
-            data1 = [{x:response['radar_index']['radarA'],value:response['radar_value_self']['radarA']},{x:response['radar_index']['radarB'],value:response['radar_value_self']['radarB']},{x:response['radar_index']['radarC'],value:response['radar_value_self']['radarC']},{x:response['radar_index']['radarD'],value:response['radar_value_self']['radarD']},{x:response['radar_index']['radarE'],value:response['radar_value_self']['radarE']}]
-            data2 = [ {x:response['radar_index']['radarA'],value:response['radar_value']['radarA']},{x:response['radar_index']['radarA'],value:response['radar_value']['radarA']},{x:response['radar_index']['radarB'],value:response['radar_value']['radarB']},{x:response['radar_index']['radarC'],value:response['radar_value']['radarC']},{x:response['radar_index']['radarD'],value:response['radar_value']['radarD']},{x:response['radar_index']['radarE'],value:response['radar_value']['radarE']}]
-            console.log(data1)
-            console.log(data2)
+
+            // create radar chart
             var chart = anychart.radar();
-            chart.title("雷達圖成績")
+
             // set default series type
             chart.defaultSeriesType('area');
-            chart.area(data1).name('自評').markers(true).fill("#4A4AFF", 0.3).stroke("#4A4AFF")
-            chart.area(data2).name('同學評分').markers(true).fill("#FF8000", 0.3).stroke("#FF8000")
+
             // set chart data
-            // chart.data(chartData);
-      
+            chart.data(chartData);
+
             // set chart yScale settings
             chart.yScale().minimum(0).maximum(10).ticks({ interval: 2.5 });
-      
+
             // set axes labels settings
             chart.xAxis().labels().padding(5);
             chart.xAxis().labels().fontSize(30)
-      
+
             // set chart legend settings
             chart.legend().align('center').enabled(true);
-      
+
             // set tooltip format
             chart.tooltip().format('score: {%Value}\xb0');
-      
+            
             // set container id for the chart
             chart.container('radar_fig');
             // initiate chart drawing
@@ -839,12 +951,3 @@ anychart.onDocumentReady(function (question_id) {
             
 
 });
-
-$('.summut_question').on('click', function () {
-    var data = getUrlVars()
-    course_id = data["course_id"];
-    question_req_id = $('#question_request_select').val()
-    window.location.href = "student_question.html?course_id=" + course_id + "&question_req_id=" + question_req_id;
-    
-})
-

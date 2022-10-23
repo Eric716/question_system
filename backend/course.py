@@ -231,7 +231,7 @@ def getting_scores_mean(data):
     
     
     dict = {'radar_index':radar_index,'radar_value':radar_value,'radar_value_self':radar_value_self}
-
+    print(dict)
     return dict
 def student_getting_course(user_id):
     conn = pymysql.connect(host = '127.0.0.1',

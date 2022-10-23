@@ -347,7 +347,7 @@ def questions_list():
     data = request.form.to_dict()
     # print(data)
     # return get_questions(current_user.id)
-    return get_questions()
+    return get_questions(data)
 
 @app.route("/questions_list_student",methods=['POST'])
 # @login_required
