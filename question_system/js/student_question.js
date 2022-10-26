@@ -104,7 +104,7 @@ $(document).ready(function () {
             // console.log(response);
 
             for (const [key, value] of Object.entries(response)) {
-                console.log(key);
+                // console.log(key);
                 $("#question_request_select").append(
                     "<option value=" + key + ">" +  value['title'] + "</option>"
                 )
@@ -132,9 +132,7 @@ $(document).ready(function () {
         $.ajax(settings).done(function (response) {
           var class_name = document.getElementById("class_name")
           class_name.innerText = response
-          var redirect = document.getElementById("redirect")
-          redirect.href += "?course_id="
-          redirect.href += course_id
+
           //console.log(redirect.href )
         });
       
@@ -359,7 +357,7 @@ $(".question_table_wordcloud").hide()
     if(response=='not_login'){
       gotologin()
   }
-    console.log(response)
+    // console.log(response)
 
     $("#question_req").html("<tr><th>課程名稱</th><th>title</th><th>選擇章節</th><th>hashtagA</th><th>hashtagB</th><th>hashtagC</th><th>radarA</th><th>radarB</th><th>radarC</th><th>radarD</th><th>radarE</th></tr>")
     var list = ['course_name', 'title', 'question_id', 'hashtagA', 'hashtagB', 'hashtagC', 'radarA', 'radarB', 'radarC', 'radarD', 'radarE']
@@ -488,30 +486,21 @@ anychart.onDocumentReady(function (question_id) {
             },
           };
           $.ajax(settings).done(function (response) {
-            var chartData = {
-              title: '雷達圖成績',
-              // header: ['#', 'Day (max)', 'Night (min)'],
-              // rows: [
-              //   ['January', 8.1,,
-              //   ['February', 8.4],
-              //   ['March', 11.4],
-              //   ['April', 14.2],
-              //   ['May', 17.9],
-      
-              // ]
-              header: ['#', '自評', '同學評分'],
-              rows: [
-                [response['radar_index']['radarA'], response['radar_value_self']['radarA'], response['radar_value']['radarA']],
-                [response['radar_index']['radarB'], response['radar_value_self']['radarB'], response['radar_value']['radarB']],
-                [response['radar_index']['radarC'], response['radar_value_self']['radarC'], response['radar_value']['radarC']],
-                [response['radar_index']['radarD'], response['radar_value_self']['radarD'], response['radar_value']['radarD']],
-                [response['radar_index']['radarE'], response['radar_value_self']['radarE'], response['radar_value']['radarE']],
-              ]
-            };
-            data1 = [{x:response['radar_index']['radarA'],value:response['radar_value_self']['radarA']},{x:response['radar_index']['radarB'],value:response['radar_value_self']['radarB']},{x:response['radar_index']['radarC'],value:response['radar_value_self']['radarC']},{x:response['radar_index']['radarD'],value:response['radar_value_self']['radarD']},{x:response['radar_index']['radarE'],value:response['radar_value_self']['radarE']}]
-            data2 = [ {x:response['radar_index']['radarA'],value:response['radar_value']['radarA']},{x:response['radar_index']['radarA'],value:response['radar_value']['radarA']},{x:response['radar_index']['radarB'],value:response['radar_value']['radarB']},{x:response['radar_index']['radarC'],value:response['radar_value']['radarC']},{x:response['radar_index']['radarD'],value:response['radar_value']['radarD']},{x:response['radar_index']['radarE'],value:response['radar_value']['radarE']}]
-            console.log(data1)
-            console.log(data2)
+            data1=[]
+            data2=[]
+            // data1 = [{x:response['radar_index']['radarA'],value:response['radar_value_self']['radarA']},{x:response['radar_index']['radarB'],value:response['radar_value_self']['radarB']},{x:response['radar_index']['radarC'],value:response['radar_value_self']['radarC']},{x:response['radar_index']['radarD'],value:response['radar_value_self']['radarD']},{x:response['radar_index']['radarE'],value:response['radar_value_self']['radarE']}]
+            // data2 = [{x:response['radar_index']['radarA'],value:response['radar_value']['radarA']},{x:response['radar_index']['radarA'],value:response['radar_value']['radarA']},{x:response['radar_index']['radarB'],value:response['radar_value']['radarB']},{x:response['radar_index']['radarC'],value:response['radar_value']['radarC']},{x:response['radar_index']['radarD'],value:response['radar_value']['radarD']},{x:response['radar_index']['radarE'],value:response['radar_value']['radarE']}]
+
+            for(var index in response['radar_index']){
+
+                if (response['radar_index'][index].includes('-')){
+                    console.log('skip')
+                }else{
+                    data1.push({x:response['radar_index'][index],value:response['radar_value_self'][index]})
+                    data2.push({x:response['radar_index'][index],value:response['radar_value'][index]})
+                }
+            }
+
             var chart = anychart.radar();
             chart.title("雷達圖成績")
             // set default series type
@@ -758,7 +747,7 @@ anychart.onDocumentReady(function (question_id) {
             // var data = response[global_question_id];
             var data = response[0]
             // data = JSON.parse(data);
-            console.log(global_question_id)
+            // console.log(global_question_id)
             // console.log(data)
             // console.log(data) create a tag (word) cloud chart
             var chart = anychart.tagCloud(data);
@@ -841,10 +830,23 @@ anychart.onDocumentReady(function (question_id) {
 });
 
 $('.summut_question').on('click', function () {
-    var data = getUrlVars()
-    course_id = data["course_id"];
-    question_req_id = $('#question_request_select').val()
-    window.location.href = "student_question.html?course_id=" + course_id + "&question_req_id=" + question_req_id;
+
+
+    var check = function(){
+        var test = document.getElementById("dummyframe").contentDocument.body
+
+        if(test.innerHTML=='ok'){
+                var data = getUrlVars()
+                course_id = data["course_id"];
+                question_req_id = $('#question_request_select').val()
+                window.location.href = "student_question.html?course_id=" + course_id + "&question_req_id=" + question_req_id;
+        }
+        else {
+            alert('系統忙碌中，請再試一次')
+            ; // check again in a second
+        }
+    }
     
+    setTimeout(check, 1000)
 })
 

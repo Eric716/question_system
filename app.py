@@ -10,12 +10,7 @@ from backend.user import *
 from backend.course import *
 from backend.question import *
 import pymysql
-conn = pymysql.connect(host = '127.0.0.1',
-                       port = 3306,
-                       user = 'qsweb',
-                       passwd = '000000',
-                       db = 'question_system',
-                       charset='utf8')
+
 
 # Create Flask app object
 app = Flask(__name__, static_folder="./question_system/",template_folder='./question_system/')
@@ -102,6 +97,12 @@ def logout():
 
 @app.route('/register',methods=['POST'])
 def register():
+    conn = pymysql.connect(host = '127.0.0.1',
+                       port = 3306,
+                       user = 'qsweb',
+                       passwd = '000000',
+                       db = 'question_system',
+                       charset='utf8')
     data = request.form.to_dict()
     cur = conn.cursor()
 
@@ -121,6 +122,8 @@ def register():
     values = (data["passwd"],data["name"],data["school"],data["class"],data["student_id"],data["email"],data["permission"],data["nickname"])
     cur.execute(into, values)
     conn.commit()
+    cur.close()
+    conn.close()
     return '註冊成功'
 @app.route('/user_info_update',methods=['POST'])
 def user_info_update():
@@ -131,6 +134,12 @@ def user_info_update():
 ############################
 @app.route('/new_course', methods=['POST'])
 def new_course():
+    conn = pymysql.connect(host = '127.0.0.1',
+                       port = 3306,
+                       user = 'qsweb',
+                       passwd = '000000',
+                       db = 'question_system',
+                       charset='utf8')
     if not current_user.is_authenticated:
         return 'not_login'
     data = request.form.to_dict()
@@ -145,6 +154,8 @@ def new_course():
     values = (current_user.id,course_name)
     cur.execute(into, values)
     conn.commit()
+    cur.close()
+    conn.close()
     return '新增成功'
 @app.route("/get_course")
 def getcourse():
@@ -278,8 +289,11 @@ def guidance(name):
         CN_example = data['CN_example']
         course_id = data['course_id']
         return add_guidance(course_id,EN_description,CN_description,EN_example,CN_example)
-
-
+@app.route("/get_question_request", methods=['POST'])
+def get_question_requestt():
+    data = request.form.to_dict()
+    question_req_id = data['question_req_id']
+    return get_question_request(question_req_id)
 @login_required
 def user_info():
     if not current_user.is_authenticated:
@@ -397,6 +411,12 @@ def test2():
 
 @app.route('/tables.html')
 def hello_world():
+    conn = pymysql.connect(host = '127.0.0.1',
+                       port = 3306,
+                       user = 'qsweb',
+                       passwd = '000000',
+                       db = 'question_system',
+                       charset='utf8')
     if not current_user.is_authenticated:
         return 'not_login'
     cur = conn.cursor()
@@ -411,7 +431,8 @@ def hello_world():
     cur.execute(sql)
     labels = cur.fetchall()
     labels = [l[0] for l in labels]
-
+    cur.close()
+    conn.close()
     return render_template('tables.html', labels=labels, content=content)
 
 @app.route("/question_system/question_create", methods=['POST'])
@@ -429,7 +450,8 @@ def question_create():
         # print(guidance_dict[1]['EN_description'])
         # return render_template('question.html', guidance_dict = guidance_dict)
         guidance_dict = get_guidance(request.args.get('course_id'))
-        return render_template('student_question.html', guidance_dict = guidance_dict)
+        # return render_template('student_question.html', guidance_dict = guidance_dict)
+        return 'ok'
         # return  render_template('index.html', guidance_dict = guidance_dict) 
         # return str(0)
         # return render_template("show_records.html", html_records=python_records)
@@ -453,7 +475,7 @@ def score_input():
         score_to_db(request.form, current_user.id)
         # return str(list(request.form.values())[10])
         # print(request.files['image'])
-        return render_template('score.html')
+        return 'ok'
         # return render_template("show_records.html", html_records=python_records)
     else:
         return render_template("select_records.html")

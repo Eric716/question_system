@@ -733,10 +733,20 @@ anychart.onDocumentReady(function () {
           [response['radar_index']['radarE'], response['radar_value_self']['radarE'], response['radar_value']['radarE']],
         ]
       };
-      data1 = [{x:response['radar_index']['radarA'],value:response['radar_value_self']['radarA']},{x:response['radar_index']['radarB'],value:response['radar_value_self']['radarB']},{x:response['radar_index']['radarC'],value:response['radar_value_self']['radarC']},{x:response['radar_index']['radarD'],value:response['radar_value_self']['radarD']},{x:response['radar_index']['radarE'],value:response['radar_value_self']['radarE']}]
-      data2 = [ {x:response['radar_index']['radarA'],value:response['radar_value']['radarA']},{x:response['radar_index']['radarA'],value:response['radar_value']['radarA']},{x:response['radar_index']['radarB'],value:response['radar_value']['radarB']},{x:response['radar_index']['radarC'],value:response['radar_value']['radarC']},{x:response['radar_index']['radarD'],value:response['radar_value']['radarD']},{x:response['radar_index']['radarE'],value:response['radar_value']['radarE']}]
-      console.log(data1)
-      console.log(data2)
+      data1=[]
+      data2=[]
+      // data1 = [{x:response['radar_index']['radarA'],value:response['radar_value_self']['radarA']},{x:response['radar_index']['radarB'],value:response['radar_value_self']['radarB']},{x:response['radar_index']['radarC'],value:response['radar_value_self']['radarC']},{x:response['radar_index']['radarD'],value:response['radar_value_self']['radarD']},{x:response['radar_index']['radarE'],value:response['radar_value_self']['radarE']}]
+      // data2 = [{x:response['radar_index']['radarA'],value:response['radar_value']['radarA']},{x:response['radar_index']['radarA'],value:response['radar_value']['radarA']},{x:response['radar_index']['radarB'],value:response['radar_value']['radarB']},{x:response['radar_index']['radarC'],value:response['radar_value']['radarC']},{x:response['radar_index']['radarD'],value:response['radar_value']['radarD']},{x:response['radar_index']['radarE'],value:response['radar_value']['radarE']}]
+
+      for(var index in response['radar_index']){
+
+          if (response['radar_index'][index].includes('-')){
+              console.log('skip')
+          }else{
+              data1.push({x:response['radar_index'][index],value:response['radar_value_self'][index]})
+              data2.push({x:response['radar_index'][index],value:response['radar_value'][index]})
+          }
+      }
       var chart = anychart.radar();
       chart.title("雷達圖成績")
       // set default series type

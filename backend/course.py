@@ -20,7 +20,8 @@ def get_dict_course(name=None):
     dict = {}
     for data in content:
         dict[data[0]] = {'course_name':data[2],'teacher':data[1]}
-
+    cur.close()
+    conn.close()
     return dict
 
 def trans_course(course_id):
@@ -44,7 +45,8 @@ def course_selection(action,course_id,student_id):
     #print(sql)
     cur.execute(sql)
     conn.commit()
-
+    cur.close()
+    conn.close()
     return 'ok'
 def get_guidance(course_id=''):
     conn = pymysql.connect(host = '127.0.0.1',
@@ -65,7 +67,8 @@ def get_guidance(course_id=''):
     for guide in content:
         dict[guide[6]] = {'en_description':guide[0],'ch_description':guide[1],'en_example':guide[2],'ch_example':guide[3]}
     conn.commit()
-    
+    cur.close()
+    conn.close()
     return dict
 def add_guidance(course_id,EN_description,CN_description,EN_example,CN_example):
     conn = pymysql.connect(host = '127.0.0.1',
@@ -82,6 +85,8 @@ def add_guidance(course_id,EN_description,CN_description,EN_example,CN_example):
 
     cur.execute(sql)
     conn.commit()
+    cur.close()
+    conn.close()
     return 'ok'
 def add_question(data):
     title = data['title']
@@ -108,6 +113,8 @@ def add_question(data):
     values = (course_id,hashtagA,hashtagB,hashtagC,radarA,radarB,radarC,radarD,radarE,title)
     cur.execute(sql, values)
     conn.commit()
+    cur.close()
+    conn.close()
     return 'ok'
 def list_question(data):
     # print(data)
@@ -130,8 +137,10 @@ def list_question(data):
 
     for question in content:
         dict[question[1]] = {'course_name':trans_course(question[0]),'question_id':question[1],'hashtagA':question[3],'hashtagB':question[4],'hashtagC':question[5],'radarA':question[6],'radarB':question[7],'radarC':question[8],'radarD':question[9],'radarE':question[10],'title':question[11]}
+    cur.close()
+    conn.close()
     return dict
-def get_question_request_tags(question_req_id):
+def get_question_request(question_req_id):
     conn = pymysql.connect(host = '127.0.0.1',
             port = 3306,
             user = 'qsweb',
@@ -139,7 +148,7 @@ def get_question_request_tags(question_req_id):
             db = 'question_system',
             charset='utf8')
     cur = conn.cursor()
-    sql = "SELECT * FROM `question_request` WHERE `question_req_id` = '" + str(question_req_id) + "'"
+    sql = "SELECT * FROM `question_request` WHERE `question_id_req` = '" + str(question_req_id) + "'"
     cur.execute(sql)
     content = cur.fetchall()
     dict = {}
@@ -147,7 +156,8 @@ def get_question_request_tags(question_req_id):
     for question in content:
   
         dict[question[1]] = {'course_name':trans_course(question[0]),'question_id':question[1],'hashtagA':question[3],'hashtagB':question[4],'hashtagC':question[5],'radarA':question[6],'radarB':question[7],'radarC':question[8],'radarD':question[9],'radarE':question[10],'title':question[11]}
-
+    cur.close()
+    conn.close()
     return dict
 def listing_question_response(data,user_id):
     question_req_id = data['question_req_id']
@@ -184,6 +194,8 @@ def listing_question_response(data,user_id):
             dict[question[0]]['delete_permission'] = 'yes'
         else:
             dict[question[0]]['delete_permission'] = 'no'
+    cur.close()
+    conn.close()
     return dict
 def getting_scores_mean(data):
     #question_req_id = data['question_req_id']
@@ -231,7 +243,8 @@ def getting_scores_mean(data):
     
     
     dict = {'radar_index':radar_index,'radar_value':radar_value,'radar_value_self':radar_value_self}
-    print(dict)
+    cur.close()
+    conn.close()
     return dict
 def student_getting_course(user_id):
     conn = pymysql.connect(host = '127.0.0.1',
@@ -253,6 +266,8 @@ def student_getting_course(user_id):
     for course_id in course_dict:
         if(str(course_id) in course_list):
             dict_return[course_id] = course_dict[course_id]
+    cur.close()
+    conn.close()
     return dict_return
 if __name__ == "__main__":
     print(trans_course(20))

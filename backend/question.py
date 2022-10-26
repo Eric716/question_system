@@ -46,7 +46,8 @@ def web_select_specific(condition, user_id):
 
     cursor.execute(into, values)
     conn.commit()
-
+    cur.close()
+    conn.close()
     return 0
 
 def get_img():
@@ -72,7 +73,8 @@ def get_img():
     cv2.waitKey() 
     # data =pic['image']
     # data.save('2.png')
-
+    cur.close()
+    conn.close()
     return 0
 
 def get_guidance(course_id = ""):
@@ -94,6 +96,8 @@ def get_guidance(course_id = ""):
         #print(data)
         dict[data[6]] = {'EN_description':data[0],'CN_description':data[1],'EN_example':data[2],'CN_example':data[3],'course_id':data[4],'status':data[5],'guidance_id':data[6]}
     # print(dict)
+    cur.close()
+    conn.close()
     return dict
 
 def get_questions(data,user_id=""):
@@ -137,6 +141,8 @@ def get_questions(data,user_id=""):
         # dict[data[0]] = data
     # #print(dict)
     # return str(content[0][0])
+    cur.close()
+    conn.close()
     return dict
 
 def test(data):
@@ -165,6 +171,7 @@ def test(data):
         dict_total_list.append(dict_total)
         
     dict_total_list_dict = {0: dict_total_list}
+    
     return dict_total_list_dict #.keys()
     
 
@@ -208,6 +215,8 @@ def get_questions_student(user_id = ""):
         # dict[data[0]] = data
     # #print(dict)
     # return str(content[0][0])
+    cur.close()
+    conn.close()
     return dict
 
 def get_questions_id(course_id = ""):
@@ -232,6 +241,8 @@ def get_questions_id(course_id = ""):
         # dict[data[0]] = data
     # #print(dict)
     # return str(content[0][0])
+    cur.close()
+    conn.close()
     return dict
 
 def get_hashtag_list_all(data):
@@ -272,7 +283,7 @@ def get_hashtag_list_all(data):
         # return str(content[0][0])
         # hashtag_list_total = hashtag_list + teacher_list + all_class_list
         hashtag_list_total = hashtag_list + all_class_list
-        ratio = len(set(all_class_list))/len(set(hashtag_list))
+        # ratio = len(set(all_class_list))/len(set(hashtag_list))
         
         dict_total = {}
         dict_total_list = []
@@ -311,6 +322,8 @@ def get_hashtag_list_all(data):
         # print(question_id)
         dict_total_list_dict.update({str(question_id): dict_total_list})
     # print(dict_total_list_dict)
+    cur.close()
+    conn.close()
     return ((dict_total_list_dict))
 
 def get_hashtag_list_all2(data):
@@ -332,7 +345,11 @@ def get_hashtag_list_all2(data):
         # #print(dict)
         # return str(content[0][0])
         hashtag_list_total = hashtag_list + teacher_list# + all_class_list
-        ratio = len(set(hashtag_list))/len(set(teacher_list))
+        if len(set(teacher_list))==0:
+            teacher_list_len = 1
+        else:
+            teacher_list_len = len(set(teacher_list))
+        ratio = len(set(hashtag_list))/teacher_list_len
         
         dict_total = {}
         dict_total_list = []
@@ -369,8 +386,10 @@ def get_hashtag_list_all2(data):
             dict_total_list.append(dict_total)
         # print(dict_total_list)
         # print(question_id)
-        dict_total_list_dict = {0: dict_total_list}
+        # dict_total_list_dict = {0: dict_total_list}
+        dict_total_list_dict[0] = dict_total_list
     # print(dict_total_list_dict)
+    
     return dict_total_list_dict
 
 def get_question_request_tags(question_req_id):
@@ -397,6 +416,8 @@ def get_question_request_tags(question_req_id):
             hashtag_list.append(question[4])
         if question[5] != "":
             hashtag_list.append(question[5])
+    cur.close()
+    conn.close()
     return hashtag_list
 
 def get_score_tags(question_id):
@@ -423,6 +444,8 @@ def get_score_tags(question_id):
             hashtag_list.append(question[4])
         if question[5] != "":
             hashtag_list.append(question[5])
+    cur.close()
+    conn.close()
     return hashtag_list
 
 
@@ -455,7 +478,8 @@ def score_to_db(condition, id):
 
     cursor.execute(into, values)
     conn.commit()
-
+    cur.close()
+    conn.close()
     return 0
 def deleting_question(data):
     conn = pymysql.connect(host = '127.0.0.1',
@@ -469,7 +493,8 @@ def deleting_question(data):
     sql = "DELETE FROM `question` WHERE `id` ="+ str(question_id) 
     cur.execute(sql)
     conn.commit()
-
+    cur.close()
+    conn.close()
     return '刪除成功'
 
 def getting_scores_comments(data):
@@ -493,5 +518,6 @@ def getting_scores_comments(data):
         comment_list.append(comment)
     comment_dict[0] = comment_list
     # dict = {question_id:content}
-    print(comment_dict)
+    cur.close()
+    conn.close()
     return comment_dict

@@ -15,7 +15,8 @@ def get_dict_users():
     for data in content:
         #print(data)
         dict[data[5]] = {'student_id':data[5],'password':data[1],'name':data[2],'permission':data[7],'school':data[3],'class':data[4],'email':data[6],'nickname':data[8]}
-    #print(dict)
+    cur.close()
+    conn.close()
     return dict
 def get_users_in_course(course_id):
     conn = pymysql.connect(host = '127.0.0.1',
@@ -31,7 +32,8 @@ def get_users_in_course(course_id):
     list = []
     for data in content:
         list.append(data[0])
-    #print(list)
+    cur.close()
+    conn.close()
     return list
 
 def check_repeat_users(school,classs,student_id):
@@ -79,6 +81,8 @@ def user_info_updating(data):
     values = (data["name"],data["school"],data["class"],data["email"],data["nickname"],data["student_id"])
     cur.execute(into, values)
     conn.commit()
+    cur.close()
+    conn.close()
     return 'ok'
 if __name__ == "__main__":
     get_users_in_course("test_0")

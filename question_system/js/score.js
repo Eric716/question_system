@@ -1,4 +1,6 @@
-
+function gotologin() {
+    window.location.href = "login.html"
+}
 function getUrlVars() {
     var vars = [],
         hash;
@@ -88,7 +90,7 @@ $(document).ready(function () {
             // console.log(response);
 
             for (const [key, value] of Object.entries(response)) {
-                console.log(key);
+                // console.log(key);
                 $("#question_request_select").append(
                     "<option value=" + key + ">" + key + ": " + value['title'] + "</option>"
                 )
@@ -164,14 +166,14 @@ $('#category2').change(function () {
         });
 
     var t = $("#category2 option:selected").val();
-    console.log(t);
+    // console.log(t);
     // $("#content2").val(t);
     var data = getUrlVars()
     var course_id = data["course_id"];
     var question_req_id = data["question_req_id"];
     var settings = {
         "async": true,
-        "url": "/questions_list",
+        "url": "/get_question_request",
         "method": "post",
         "timeout": 0,
         "headers": {
@@ -187,13 +189,14 @@ $('#category2').change(function () {
             if (response == 'not_login') {
                 gotologin()
             }
+            // console.log(response[question_req_id])
             // console.log(response[t]);
             // a = document.getElementById("radar1_label")
-            document.getElementById("radar1_label").innerHTML = response[t]['radar1']
-            document.getElementById("radar2_label").innerHTML = response[t]['radar2']
-            document.getElementById("radar3_label").innerHTML = response[t]['radar3']
-            document.getElementById("radar4_label").innerHTML = response[t]['radar4']
-            document.getElementById("radar5_label").innerHTML = response[t]['radar5']
+            document.getElementById("radar1_label").innerHTML = response[question_req_id]['radarA']
+            document.getElementById("radar2_label").innerHTML = response[question_req_id]['radarB']
+            document.getElementById("radar3_label").innerHTML = response[question_req_id]['radarC']
+            document.getElementById("radar4_label").innerHTML = response[question_req_id]['radarD']
+            document.getElementById("radar5_label").innerHTML = response[question_req_id]['radarE']
 
         });
     // $('.disable_class').prop("disabled", "disable");
@@ -267,10 +270,24 @@ $('#question_req').on('click', '.request_button', function () {
 
     
   })
-  $('.summut_question').on('click', function () {
-    var data = getUrlVars()
-    course_id = data["course_id"];
-    question_req_id =  data["question_req_id"];
-    window.location.href = "student_question.html?course_id=" + course_id + "&question_req_id=" + question_req_id;
+
+$('.summut_question').on('click', function () {
+
+
+    var check = function(){
+        var test = document.getElementById("dummyframe").contentDocument.body
+
+        if(test.innerHTML=='ok'){
+            var data = getUrlVars()
+            course_id = data["course_id"];
+            question_req_id =  data["question_req_id"];
+            window.location.href = "student_question.html?course_id=" + course_id + "&question_req_id=" + question_req_id;
+        }
+        else {
+            alert('系統忙碌中，請再試一次')
+            ; // check again in a second
+        }
+    }
     
+    setTimeout(check, 1000)
 })
